@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Home automation: research and choosing hardware - Valentin Mihov's blog</title>
+  <meta name="author" content="Valentin Mihov">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="Valentin Mihov's blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-9529494-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Valentin Mihov's blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="http://google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:valentinmihov.com">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-12T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com">Comments</a>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        Home automation: research and choosing hardware
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>I decided to make a self made home automation system in my apartment. The reason is that I figured out that turning on and off my heating when I am not around reduces my electricity bill by 50%. My current schedule is to turn off the heating when I leave the house and turn it on 1 hour before I come back home. I do the same thing with the heating in my bedroom. The heating there is turned on about an hour before I go to sleep and I turn it off during the day. However there are exceptions from these rules especailly around holidays, so an automation system should also be very configurable.</p>
+
+<!--more-->
+
+
+<p>So, I decided to automate the above actions with a home automation. My idea is to have a central node, which runs linux and an http server with a simple web app, which I can connect to from my phone/laptop. The web app will allow to send commands to the nodes controlling the heating at home. I will also allow to edit the schedule the heating uses to turn on/off. There will be an arbitrary amount of nodes in the apartment that accept different commands through a wireless protocol and control stuff like radiators, air conditioners, etc. Here is a diagram of the architecture:</p>
+
+<p><img src="/images/home_automation_arch.png" title="Home Automation Architecture" ></p>
+
+<p>I explored the technologies out there and decided that I won&#8217;t use WiFi for internal communication because this is too compex for embedded devices. It turns out there are much simpler and energy efficient protocols for wireless communication like <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">nRF24L01</a>. This protocol allows to build cheap and power efficient edge nodes, that have the option to run on batteries for months.</p>
+
+<p>Next I explored the different arduino-like development platforms and decided to go with <a href="https://www.olimex.com">Olimex</a>. Their prices are great and they also provide the UEXT modules, which is essentially breadboarding, but without the need to do any soldering and wiring. I am new to the hardware development, so for now I want to skip any wiring and soldering if possible. After putting all these requirement on the table it turned out that Olimex provide the cheapest solution out there, so I decided to go with them.</p>
+
+<p>The hardware I decided to use is:</p>
+
+<ul>
+<li><a href="https://www.olimex.com/Products/OLinuXino/A10/A10-OLinuXino-LIME/open-source-hardware">A10-OLinuXino-LIME</a> - This is a board similar to raspberry pi, but is a little bit faster and has some goodness, like the posibility for a LiPo backup power, so it can continue to work even after a power outage. You can also attach a SATA hard drive and power it directly from the board. The board also has a UEXT slot, which will allow me to hook up a 2.4GHz RF module to talk to the edge nodes.</li>
+<li><a href="https://www.olimex.com/Products/Duino/PIC32/PIC32-PINGUINO-MX220/open-source-hardware">PIC32-PINGUINO-MX220</a> - This is a board similar to arduino, but is cheaper and has more memory. It has a connector to hook up to a LiPo battery and UEXT extension slot.</li>
+<li><a href="https://www.olimex.com/Products/Modules/Interface/MOD-IRDA+/open-source-hardware">MOD-IRDA+</a> - An infra red transcever running on a I2C bus. I2C is a nice bus, because it allows you to have several devices hooked up on the same bus</li>
+<li><a href="https://www.olimex.com/Products/Modules/RF/MOD-NRF24LR/">MOD-NRF24LR</a> - This is the 2.4GHz radio module for the wireless communication. It is ultra low power and works with over SPI interface, which is really simple to work with. Much simpler, cheaper and low power, than a full stack WiFi module</li>
+<li><a href="https://www.olimex.com/Products/Modules/IO/MOD-IO2/open-source-hardware">MOD-IO2</a> - This is a relay, which allows to control two power outlets. It also runs on the I2C interface.</li>
+</ul>
+
+
+<p>I decided to use the UEXT sockets to hook up everything. Keep in mind that if you use UEXT you can hook up several I2C devices to the same port. You can also hook up I2C devices and one SPI device, but you can&#8217;t have several SPI devices. This is because SPI does not allow to use the same pins for several devices. I2C allows that, as it is a more comprex protocol with addressing and stuff.</p>
+
+<p>I ordered the hardware and after 3 days I got everything on the mail:</p>
+
+<p><img src="/images/olimex_delivery.jpg" title="Olimex Delivery" ></p>
+
+<p>In the next blog post I am going to write about setting up the development environment on Mac OS X 10.9 and running my first programs on these boards. Stay tuned!</p>
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">Valentin Mihov</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-02-12T00:00:00+02:00" pubdate data-updated="true"></time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/home-automation/'>home automation</a>, <a class='category' href='/blog/categories/pinguino/'>pinguino</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/" data-via="valentinmihov" data-counturl="http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/2010/02/23/ruby_1_9_1_and_mysql_i18n/" title="Previous Post: Running Ruby 1.9.1 + Rails + MySQL and unicode characters">&laquo; Running Ruby 1.9.1 + Rails + MySQL and unicode characters</a></li>
+            
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item active" href="/2014/02/12/home_automation_research_choosing_hardware/">Home automation: research and choosing hardware</a>
+    
+    <a class="list-group-item " href="/2010/02/23/ruby_1_9_1_and_mysql_i18n/">Running Ruby 1.9.1 + Rails + MySQL and unicode characters</a>
+    
+    <a class="list-group-item " href="/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/">My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 2</a>
+    
+    <a class="list-group-item " href="/2010/02/02/switching_to_jekyll_and_compass/">Switching my blog to jekyll and compass</a>
+    
+    <a class="list-group-item " href="/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/">My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1</a>
+    
+  </div>
+</section>
+
+<section class="panel panel-default clearfix">
+  <div class="panel-heading">
+      <h3 class="panel-title">GitHub Repos</h3>
+  </div>
+  <div class="list-group" id="gh_repos">
+    <p class="loading">Status updating...</p>
+  </div>
+  
+    <div class="gh-profile-link pull-right text-muted">
+      <a href="https://github.com/valo">@valo</a> on GitHub
+    </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'valo',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <a class="twitter-timeline" href="https://twitter.com/valentinmihov" data-widget-id="433939645676519424">Tweets by @valentinmihov</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - Valentin Mihov<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'valentinmihov';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/';
+        var disqus_url = 'http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </body>
+</html>

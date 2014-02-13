@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: good practices | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/good-practices/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why writing good XHTML matters]]></title>
+    <link href="http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters/"/>
+    <updated>2009-07-06T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters</id>
+    <content type="html"><![CDATA[<p>These days I am working on a large change in our corporate website. It includes  a lot of functional changes as well as a lot of little text tweaks here and there. Our process for making these changes is that the marketing people go through the whole site and generate a large document, which includes all the modifications that should be made. After that the developers go through the large doc and start making the changes. The problem is that this process is <strong>very</strong> inefficient. This is because of the following reasons:</p>
+
+<!--more-->
+
+
+<ul>
+<li>The marketing people need time to generate the changes</li>
+<li>The developers need time to understand the changes. Usually emails are exchanged, because the idea is not clear in all the places</li>
+<li>The developers end up making a lot of find/replace, copy/paste changes, which are nothing more than text editing</li>
+</ul>
+
+
+<p>Sounds familiar, huh?</p>
+
+<p>I was thinking about this and I believe that the problem in the whole process is in the developers and the code base of the web site. In the perfect world the code of the website will be clean XHTML with very well separated CSS style and <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript" title="Unobtrusive JavaScript - Wikipedia, the free encyclopedia">unobstructive javascript</a>. What this means is that the code of the website will be readable by ordinary people, who don't understand any of the above things. Therefore these people will be able to easily make simple changes of the text without fearing that they will break something.</p>
+
+<p>You can't expect the non-programming people to understand what is javascript, why are these empty div-s here and why do we need them in order to have rounded corners. This reminds me again about the saying "Source code is intended to be read by humans and sometimes to be able to run on machines".</p>
+
+<p>Here is a real argument, why we should not bloat our code. It will save us time in the future and will make our company more effective.</p>
+
+<h2>Bottom line</h2>
+
+<p>If you write clean and understandable code you will not only save time during future maintenance, but your team could be more effective, because non-programming people can make small tweaks.</p>
+]]></content>
+  </entry>
+  
+</feed>

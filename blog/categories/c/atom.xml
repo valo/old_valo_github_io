@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: C | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/c/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The game of Breakit!]]></title>
+    <link href="http://valentinmihov.com/2008/08/07/game_of_breakit/"/>
+    <updated>2008-08-07T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/08/07/game_of_breakit</id>
+    <content type="html"><![CDATA[<p>When I was still in high school I wrote a game. It was a cloning of the famous Arcanoid game and was written in <a href="http://www.talula.demon.co.uk/allegro/">Allegro</a>. The unique feature of the game is that it supports multiplayer on one PC, which is something like deathmatch. Today I found the source and opened a project in Google Code. Here is it: <a href="http://code.google.com/p/breakin/">http://code.google.com/p/breakin/</a> (the project is called breakin, because breakit is used for another project in sourceforge).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The song about the bottles sang by a C programmer]]></title>
+    <link href="http://valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
+    <updated>2008-07-01T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/07/01/bottles_programmer_song</id>
+    <content type="html"><![CDATA[<p>``` bash</p>
+
+<pre><code># ./sing_ten_bottles_song
+NULL green bottleshanging on the wall,
+NULL green bottleshanging on the wall,
+And if one green bottle
+Should accidentally fall
+
+Segmentation fault#
+</code></pre>
+
+<p>```</p>
+
+<p>The big question is on which line exactly the segmentation fault will be thrown? ;-)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[An interesting compiler oddness in Visual Studio C++]]></title>
+    <link href="http://valentinmihov.com/2008/04/23/visual_studio_compiler_oddness/"/>
+    <updated>2008-04-23T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/04/23/visual_studio_compiler_oddness</id>
+    <content type="html"><![CDATA[<p>A few days ago I stumbled to a very interesting behavior of the Visual Studio C++ compiler. Here is a simple code illustrating it:</p>
+
+<p>``` c</p>
+
+<pre><code>#include &lt;cstdio&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+map&lt;string, string&gt; gmap;
+
+void test(bool use_global_map)
+{
+  map&lt;string, string&gt;&amp; m = use_global_map ? gmap : map&lt;string, string&gt;();
+  m["A"] = "This is a changed value";
+}
+
+int main()
+{
+  gmap["A"] = "Initial value";
+  test(false);
+  printf("Value in map with false arg: %s\n", gmap["A"].c_str());
+  test(true);
+  printf("Value in map with true arg: %s\n", gmap["A"].c_str());
+}
+</code></pre>
+
+<p>```</p>
+
+<p>In this code there is an error and it is an initialization of the reference in the test function with a map, which is local for the conditional expression. This means that the reference will be initialized with an object, which will be destroyed after the line is executed.</p>
+
+<p>The problem is that VC++ allows you to write this. The more interesting thing is how this code will behave. It turns out that whatever value you pass to the test function it will always behave like you created a new map and initialized the reference with it. So, gmap will never be changed!</p>
+
+<p>Compiling this code with GCC gives an error, which is the correct behavior for this kind of expressions.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Интересна забележка отностно темплейтите в C++]]></title>
+    <link href="http://valentinmihov.com/2008/03/10/c_template_notes/"/>
+    <updated>2008-03-10T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2008/03/10/c_template_notes</id>
+    <content type="html"><![CDATA[<p>Тъй като в момента портвам едни сорсове за GCC се натъкнах на много интересна несъвместимост между VC++ и GCC. В последствие се оказа, че това е пренебрегване на VC++ на стандарта (сефте!). Ето за какво става дума:</p>
+
+<p>``` cpp</p>
+
+<pre><code>template class D : public B {
+public:
+  void g()
+  {
+    // bad (even though some compilers erroneously (temporarily?) accept it)
+    B::Xyz x;
+    // bad (even though some compilers erroneously (temporarily?) accept it)
+    B::Pqr y;
+  }
+};
+</code></pre>
+
+<p>```</p>
+
+<p>трябва да се напише по следният начин:</p>
+
+<p>``` cpp</p>
+
+<pre><code>template class D : public B {
+public:
+  void g()
+  {
+    typename B::Xyz x;  // good
+    typename B::Pqr y;  // good
+  }
+};
+</code></pre>
+
+<p>```</p>
+
+<p>Ето и линкче от където са взети примерите (не поствам моя код заради NDA): <a href="http://www.parashift.com/c++-faq-lite/templates.html#faq-35.18">инфо</a></p>
+
+<p>Между другото горният сайт е може би един най-ценните ресурси за C++ и то най-вече за по-сериозните неща в езика.</p>
+]]></content>
+  </entry>
+  
+</feed>

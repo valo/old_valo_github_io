@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: compass | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/compass/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Switching my blog to jekyll and compass]]></title>
+    <link href="http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass/"/>
+    <updated>2010-02-02T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass</id>
+    <content type="html"><![CDATA[<p>Probably you remember that some time ago I decided to switch my blog from <a href="http://blogger.google.com/" title="Google">blogger</a> to a custom made blogging engine written my me. It was a simple sinatra app, which was parsing a bunch of markdown files, which were the posts and rendering the blog.</p>
+
+<!--more-->
+
+
+<p>What I really liked in this approach are several things:</p>
+
+<ul>
+<li>I can easily blog from TextMate or any other editor supporting markdown highlighting</li>
+<li>I can keep my blog in source countrol, like github</li>
+<li>I have the flexibility to do whatever I want with the text files of the posts (like exporting them to PDF or LaTeX later)</li>
+<li>I avoid the complexity of WordPress and the WTFiness when the posts render weirdly from the database (like escaped '&lt;' and '>' symbols)</li>
+</ul>
+
+
+<p>As a whole I think that heavy engines like <a href="http://wordpress.org/" title="WordPress &#8250; Blog Tool and Publishing Platform">WordPress</a> are just too complex for most of the blogs. Keeping your posts in a database makes them difficult to be exported to other formats like PDF and also the HTML code tends to become too messy in a very short time. Especially if you are using WYSIWYG editors.</p>
+
+<h2>Why I decided to switch from my initial custom engine?</h2>
+
+<p>The <a href="http://www.sinatrarb.com/" title="Sinatra">sinatra</a> app that I implemented was basically parsing a bunch of markdown files with some meta data embedded in them and was rendering them in the blog. A lot of the functionality was offloaded to javascript.</p>
+
+<p>There was a major flaw in that approach: SEO sucked!</p>
+
+<p>Because of the javascript code, which was doing most of the work the search engine crawlers were not able to detect the proper titles of the posts and the titles are something <em>really</em> important for the SEO.</p>
+
+<p>So, I had to make a change in order to make my blog discoverable. I decided to use <a href="http://github.com/mojombo/jekyll" title="mojombo's jekyll at master - GitHub">jekyll</a> because a lot of people are using it already. For example <a href="http://github.com/" title="Secure source code hosting and collaborative development - GitHub">github</a> uses it for its project pages. Also quite a lot of people are using it as a blogging engine.</p>
+
+<p>It is quite powerful and also it is doing preprocessing and effectively translates your blog into a static site. This is a great thing, because it makes the blog <em>very</em> fast.</p>
+
+<p>Comments? Use a JS solution like <a href="http://disqus.com/" title="DISQUS Comments | Powering Discussion on the Web">disqus</a> and you will be fine ;-)</p>
+
+<p>You want a twitter widget? Javascript is your friend. The twitter widget on my blog is a <a href="http://jquery.com/" title="jQuery: The Write Less, Do More, JavaScript Library">jQuery</a> plugin, which integrates very easily.</p>
+
+<h2>What about <a href="http://compass-style.org/" title="Compass">compass</a>?</h2>
+
+<p>May be you heaven't heard of compass, but tt is really great! The idea is that you have that special language to write CSS called <a href="http://sass-lang.com/" title="Sass - Syntactically Awesome Stylesheets">SASS</a>. The good thing about SASS is that it gives you things like mixins, partials and variables, which makes reusing CSS easier. It integrates with already existing CSS frameworks like <a href="http://www.blueprintcss.org/" title="Blueprint: A CSS Framework | Spend your time innovating, not replicating">blueprint</a> and makes writing layouts a peace of cake.</p>
+
+<p>For example, imagine that you are developing a site and you want to have 2 columns layout with header, content and footer. Here is how your CSS will look like with compass:</p>
+
+<pre><code>// defines a class for a body tag for 2 columns
+body.two-col
+  #container
+    +container // includes a partial called 'container'
+  #header, #footer
+    +column(24) // the header and the footer are 24 columns wide
+  #sidebar
+    +column(7, true) // the sidebar is 7 columns wide
+  #content
+    +column(16) // the content part is 16 columns wide
+    +append(1) // and it as 1 column spacing from the sidebar
+</code></pre>
+
+<p>This is really convenient, because you don't have to handle a lot of standard CSS and you just throw out your ideas.</p>
+
+<h2>Source code</h2>
+
+<p>You can find the source code of this blog here: <a href="http://github.com/valo/valentinmihov.com">http://github.com/valo/valentinmihov.com</a>. Any comments and suggestions are more than welcome.</p>
+
+<h2>What's next?</h2>
+
+<p>I plan on posting a video on getting started with jekyll, compass and <a href="http://heroku.com/" title="Heroku | Ruby Cloud Platform as a Service">heroku</a> for your own blog. It will be a several steps procedure, which will allow most of the people to have their own jekyll blog, hosted for free on heroku (which uses the Amazon cloud)</p>
+]]></content>
+  </entry>
+  
+</feed>

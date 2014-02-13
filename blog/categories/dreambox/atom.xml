@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: dreambox | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/dreambox/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dreambox.com - the revolution in the online learning]]></title>
+    <link href="http://valentinmihov.com/2008/11/01/dreambox_the_revolution/"/>
+    <updated>2008-11-01T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2008/11/01/dreambox_the_revolution</id>
+    <content type="html"><![CDATA[<p>I haven't written anything about the company I am working right now. May be one of the reasons is that my free time is highly limited (I guess working in a start-up is aways like that ;-)).</p>
+
+<!--more-->
+
+
+<p>Well, the company is <a href="http://www.dreambox.com">dreambox.com</a> and our main goal is to revolutionize the way the on-line learning is functioning. The idea is to provide personalized on-line learning. Right now we are focused on building on-line learning platform, which is targeted at teaching math to small children. Expect more interesting information to come.</p>
+
+<p>I also have posts in the company blog. Right now it is only one with the idea of increasing. Check it out <a href="http://www.dreambox.com/blog/pushing-the-kids-from-very-early-age-why-dont-we-just-let-them-have-fun/221/">here</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

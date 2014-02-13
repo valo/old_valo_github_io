@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Home automation: research and choosing hardware]]></title>
+    <link href="http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/"/>
+    <updated>2014-02-12T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware</id>
+    <content type="html"><![CDATA[<p>I decided to make a self made home automation system in my apartment. The reason is that I figured out that turning on and off my heating when I am not around reduces my electricity bill by 50%. My current schedule is to turn off the heating when I leave the house and turn it on 1 hour before I come back home. I do the same thing with the heating in my bedroom. The heating there is turned on about an hour before I go to sleep and I turn it off during the day. However there are exceptions from these rules especailly around holidays, so an automation system should also be very configurable.</p>
+
+<!--more-->
+
+
+<p>So, I decided to automate the above actions with a home automation. My idea is to have a central node, which runs linux and an http server with a simple web app, which I can connect to from my phone/laptop. The web app will allow to send commands to the nodes controlling the heating at home. I will also allow to edit the schedule the heating uses to turn on/off. There will be an arbitrary amount of nodes in the apartment that accept different commands through a wireless protocol and control stuff like radiators, air conditioners, etc. Here is a diagram of the architecture:</p>
+
+<p><img src="http://valentinmihov.com/images/home_automation_arch.png" title="Home Automation Architecture" ></p>
+
+<p>I explored the technologies out there and decided that I won&#8217;t use WiFi for internal communication because this is too compex for embedded devices. It turns out there are much simpler and energy efficient protocols for wireless communication like <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">nRF24L01</a>. This protocol allows to build cheap and power efficient edge nodes, that have the option to run on batteries for months.</p>
+
+<p>Next I explored the different arduino-like development platforms and decided to go with <a href="https://www.olimex.com">Olimex</a>. Their prices are great and they also provide the UEXT modules, which is essentially breadboarding, but without the need to do any soldering and wiring. I am new to the hardware development, so for now I want to skip any wiring and soldering if possible. After putting all these requirement on the table it turned out that Olimex provide the cheapest solution out there, so I decided to go with them.</p>
+
+<p>The hardware I decided to use is:</p>
+
+<ul>
+<li><a href="https://www.olimex.com/Products/OLinuXino/A10/A10-OLinuXino-LIME/open-source-hardware">A10-OLinuXino-LIME</a> - This is a board similar to raspberry pi, but is a little bit faster and has some goodness, like the posibility for a LiPo backup power, so it can continue to work even after a power outage. You can also attach a SATA hard drive and power it directly from the board. The board also has a UEXT slot, which will allow me to hook up a 2.4GHz RF module to talk to the edge nodes.</li>
+<li><a href="https://www.olimex.com/Products/Duino/PIC32/PIC32-PINGUINO-MX220/open-source-hardware">PIC32-PINGUINO-MX220</a> - This is a board similar to arduino, but is cheaper and has more memory. It has a connector to hook up to a LiPo battery and UEXT extension slot.</li>
+<li><a href="https://www.olimex.com/Products/Modules/Interface/MOD-IRDA+/open-source-hardware">MOD-IRDA+</a> - An infra red transcever running on a I2C bus. I2C is a nice bus, because it allows you to have several devices hooked up on the same bus</li>
+<li><a href="https://www.olimex.com/Products/Modules/RF/MOD-NRF24LR/">MOD-NRF24LR</a> - This is the 2.4GHz radio module for the wireless communication. It is ultra low power and works with over SPI interface, which is really simple to work with. Much simpler, cheaper and low power, than a full stack WiFi module</li>
+<li><a href="https://www.olimex.com/Products/Modules/IO/MOD-IO2/open-source-hardware">MOD-IO2</a> - This is a relay, which allows to control two power outlets. It also runs on the I2C interface.</li>
+</ul>
+
+
+<p>I decided to use the UEXT sockets to hook up everything. Keep in mind that if you use UEXT you can hook up several I2C devices to the same port. You can also hook up I2C devices and one SPI device, but you can&#8217;t have several SPI devices. This is because SPI does not allow to use the same pins for several devices. I2C allows that, as it is a more comprex protocol with addressing and stuff.</p>
+
+<p>I ordered the hardware and after 3 days I got everything on the mail:</p>
+
+<p><img src="http://valentinmihov.com/images/olimex_delivery.jpg" title="Olimex Delivery" ></p>
+
+<p>In the next blog post I am going to write about setting up the development environment on Mac OS X 10.9 and running my first programs on these boards. Stay tuned!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Running Ruby 1.9.1 + Rails + MySQL and unicode characters]]></title>
+    <link href="http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
+    <updated>2010-02-23T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
+    <content type="html"><![CDATA[<p>If you have tried to develop some rails application on Rails + Ruby 1.9.1 and MySQL database and you are storing non-English characters in your database probably you had a lot of pain with errors about incompatible charsets. This is a known problem and there is even <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2476-ascii-8bit-encoding-of-query-results-in-rails-232-and-ruby-191">a bug in Rails&#8217; lighthouse</a> for it. There is even a hack which is going around the issue. The solution is not perfect, but it works in most of the cases.</p>
+
+<!--more-->
+
+
+<p>The problem in a nutshell is that the MySQL Ruby lib is not respecting the encoding setting defined in the database.yml file and does not encode the strings, that are pulled from the database in that encoding. Here is an example database.yml, which defines the encoding of the database connection:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">development</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">adapter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gsm_dev</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">encoding</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">utf8</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fortunately there is a nice solution I found: use the <a href="http://github.com/tmtm/ruby-mysql" title="tmtm's ruby-mysql at 2.9 - GitHub">ruby-mysql</a> lib. It is on <a href="http://gemcutter.org/" title="RubyGems.org | your community gem host">gemcutter</a> so you can do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem uninstall mysql <span class="o">&amp;&amp;</span> gem install ruby-mysql
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is going to uninstall the buggy mysql lib and install the working ruby-mysql. Hope that helps!</p>
+
+<p>P.S.: I am not sure that this is a production-ready solution, but at least it provides a way to run things without hacks until the MySQL C API is fixed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 2]]></title>
+    <link href="http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/"/>
+    <updated>2010-02-12T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2</id>
+    <content type="html"><![CDATA[<p>My journey into the ruby 1.9 land continues with some nice observations, tricks and tips.</p>
+
+<!--more-->
+
+
+<h2>Debugger still not working</h2>
+
+<p>I just discovered something interesting. It is not really a big deal, but it is something to keep in mind:</p>
+
+<pre><code>$ gem1.9 install ruby-debug
+Building native extensions.  This could take a while...
+ERROR:  Error installing ruby-debug:
+    ERROR: Failed to build gem native extension.
+
+/usr/local/Cellar/ruby/1.9.1-p376/bin/ruby1.9 extconf.rb
+Can't handle 1.9.x yet
+</code></pre>
+
+<p>Obviously the debugger is still not working on ruby 1.9.</p>
+
+<h2>Using the rails console with ruby 1.9</h2>
+
+<p>There is a slight catch if you want to use the console. If you just do</p>
+
+<pre><code>./script/console
+</code></pre>
+
+<p>you will notice many strange behavior, like broken unicode characters and even core dumps like the one below if you have unpacked native gems in your project.</p>
+
+<pre><code>(3830) malloc: *** error for object 0x1027ec038: pointer being reallocated was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap
+</code></pre>
+
+<p>The problem is that the console is actually using the system default irb, which was using ruby 1.8 on my machine. In order to use the 1.9 irb you should do the following:</p>
+
+<pre><code>./script/console --irb=irb1.9
+</code></pre>
+
+<p>This is if your 1.9 irb is called irb1.9</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Switching my blog to jekyll and compass]]></title>
+    <link href="http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass/"/>
+    <updated>2010-02-02T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass</id>
+    <content type="html"><![CDATA[<p>Probably you remember that some time ago I decided to switch my blog from <a href="http://blogger.google.com/" title="Google">blogger</a> to a custom made blogging engine written my me. It was a simple sinatra app, which was parsing a bunch of markdown files, which were the posts and rendering the blog.</p>
+
+<!--more-->
+
+
+<p>What I really liked in this approach are several things:</p>
+
+<ul>
+<li>I can easily blog from TextMate or any other editor supporting markdown highlighting</li>
+<li>I can keep my blog in source countrol, like github</li>
+<li>I have the flexibility to do whatever I want with the text files of the posts (like exporting them to PDF or LaTeX later)</li>
+<li>I avoid the complexity of WordPress and the WTFiness when the posts render weirdly from the database (like escaped &#8216;&lt;&#8217; and &#8216;>&#8217; symbols)</li>
+</ul>
+
+
+<p>As a whole I think that heavy engines like <a href="http://wordpress.org/" title="WordPress &#8250; Blog Tool and Publishing Platform">WordPress</a> are just too complex for most of the blogs. Keeping your posts in a database makes them difficult to be exported to other formats like PDF and also the HTML code tends to become too messy in a very short time. Especially if you are using WYSIWYG editors.</p>
+
+<h2>Why I decided to switch from my initial custom engine?</h2>
+
+<p>The <a href="http://www.sinatrarb.com/" title="Sinatra">sinatra</a> app that I implemented was basically parsing a bunch of markdown files with some meta data embedded in them and was rendering them in the blog. A lot of the functionality was offloaded to javascript.</p>
+
+<p>There was a major flaw in that approach: SEO sucked!</p>
+
+<p>Because of the javascript code, which was doing most of the work the search engine crawlers were not able to detect the proper titles of the posts and the titles are something <em>really</em> important for the SEO.</p>
+
+<p>So, I had to make a change in order to make my blog discoverable. I decided to use <a href="http://github.com/mojombo/jekyll" title="mojombo's jekyll at master - GitHub">jekyll</a> because a lot of people are using it already. For example <a href="http://github.com/" title="Secure source code hosting and collaborative development - GitHub">github</a> uses it for its project pages. Also quite a lot of people are using it as a blogging engine.</p>
+
+<p>It is quite powerful and also it is doing preprocessing and effectively translates your blog into a static site. This is a great thing, because it makes the blog <em>very</em> fast.</p>
+
+<p>Comments? Use a JS solution like <a href="http://disqus.com/" title="DISQUS Comments | Powering Discussion on the Web">disqus</a> and you will be fine ;-)</p>
+
+<p>You want a twitter widget? Javascript is your friend. The twitter widget on my blog is a <a href="http://jquery.com/" title="jQuery: The Write Less, Do More, JavaScript Library">jQuery</a> plugin, which integrates very easily.</p>
+
+<h2>What about <a href="http://compass-style.org/" title="Compass">compass</a>?</h2>
+
+<p>May be you heaven&#8217;t heard of compass, but tt is really great! The idea is that you have that special language to write CSS called <a href="http://sass-lang.com/" title="Sass - Syntactically Awesome Stylesheets">SASS</a>. The good thing about SASS is that it gives you things like mixins, partials and variables, which makes reusing CSS easier. It integrates with already existing CSS frameworks like <a href="http://www.blueprintcss.org/" title="Blueprint: A CSS Framework | Spend your time innovating, not replicating">blueprint</a> and makes writing layouts a peace of cake.</p>
+
+<p>For example, imagine that you are developing a site and you want to have 2 columns layout with header, content and footer. Here is how your CSS will look like with compass:</p>
+
+<pre><code>// defines a class for a body tag for 2 columns
+body.two-col
+  #container
+    +container // includes a partial called 'container'
+  #header, #footer
+    +column(24) // the header and the footer are 24 columns wide
+  #sidebar
+    +column(7, true) // the sidebar is 7 columns wide
+  #content
+    +column(16) // the content part is 16 columns wide
+    +append(1) // and it as 1 column spacing from the sidebar
+</code></pre>
+
+<p>This is really convenient, because you don&#8217;t have to handle a lot of standard CSS and you just throw out your ideas.</p>
+
+<h2>Source code</h2>
+
+<p>You can find the source code of this blog here: <a href="http://github.com/valo/valentinmihov.com">http://github.com/valo/valentinmihov.com</a>. Any comments and suggestions are more than welcome.</p>
+
+<h2>What&#8217;s next?</h2>
+
+<p>I plan on posting a video on getting started with jekyll, compass and <a href="http://heroku.com/" title="Heroku | Ruby Cloud Platform as a Service">heroku</a> for your own blog. It will be a several steps procedure, which will allow most of the people to have their own jekyll blog, hosted for free on heroku (which uses the Amazon cloud)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1]]></title>
+    <link href="http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
+    <updated>2010-01-20T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
+    <content type="html"><![CDATA[<p>I decided to use ruby 1.9.1 for my next project. One of the reasons I decided so is because ruby 1.9 is definitely faster than 1.8 and also it has a superior encoding support for the strings. Not to mention that living on the edge is a thrill :-)</p>
+
+<!--more-->
+
+
+<h2>Setup</h2>
+
+<p>I am working on a MacBook Pro with Mac OS X 10.6.2. I installed <a href="http://github.com/mxcl/homebrew" title="mxcl's homebrew at master - GitHub">homebrew</a> so I can install ruby 1.9. Because I don&#8217;t want to override my ruby 1.8 install I had to make a change in the formula for ruby. I added a &#8211;program-suffix=1.9 to the configure script. Here is how it will look:</p>
+
+<pre><code>system "./configure", "--prefix=#{prefix}",
+                      "--disable-debug",
+                      "--disable-dependency-tracking",
+                      "--enable-shared",
+                      "--program-suffix=1.9"
+</code></pre>
+
+<p>After that I did:</p>
+
+<pre><code>gem1.9 install rails mechanize nokogiri formtastic
+</code></pre>
+
+<p>After some glitches, because I had a previous install of ruby 1.9 on my machine everything ran well.</p>
+
+<h2>Creating the rails app. Problems start to appear</h2>
+
+<p>I created the rails project and here my first serious problem struck.</p>
+
+<p>When I try to run</p>
+
+<pre><code>ruby1.9 ./script/server
+</code></pre>
+
+<p>I receive</p>
+
+<pre><code>Loading development environment (Rails 2.3.5)
+Missing the Rails 2.3.5 gem. Please `gem install -v=2.3.5 rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.
+</code></pre>
+
+<p>A workaround for this is to do</p>
+
+<pre><code>rake1.9 rails:freeze:gems
+</code></pre>
+
+<p>It is going to freeze the rails framework into the vendor folder and the server is able to run from there on. I noted to myself that I will have to unpack all the gems that I use in the project. This is really not a big deal for me, so I just continued from there on.</p>
+
+<h2>Unicode templates. The biggest pain so far.</h2>
+
+<p>I wrote my first template with some unicode symbols in it (the project is in Bulgarian) and when I tried to render the template I received an error:</p>
+
+<pre><code>invalid byte sequence in US-ASCII
+</code></pre>
+
+<p>This was quite frustrating, but after some research I figured out that the reason for this is the default encoding of the ruby VM. It is using the LANG environment variable to determine that. My LANG was empty so it assumed US-ASCII. An easy way to test what is your default encoding is to do:</p>
+
+<pre><code>$ irb1.9
+&gt;&gt; __ENCODING__
+=&gt; #&lt;Encoding:US-ASCII&gt;
+&gt;&gt; 
+</code></pre>
+
+<p>This means that ruby will load all files with this encoding by default, which also includes the templates. The way to fix this is to set the LANG var:</p>
+
+<pre><code>$ export LANG=en_US.UTF-8 &amp;&amp; irb1.9
+&gt;&gt; __ENCODING__
+=&gt; #&lt;Encoding:UTF-8&gt;
+&gt;&gt; 
+</code></pre>
+
+<p>This fixes this error, but causes a new one:</p>
+
+<pre><code>incompatible character encodings: ASCII-8BIT and UTF-8
+</code></pre>
+
+<p>This was a tough one. It turned out that there is a bug about this in the rails&#8217; lighthouse: <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2188-i18n-fails-with-multibyte-strings-in-ruby-19-similar-to-2038">here</a></p>
+
+<p>Using the workaround of Hektor fixed the issue, although it is not perfect, because it forces the encoding of the erb templates to utf-8, which will not work if you use some other encoding.</p>
+
+<h2>Mechanize and SSL pages</h2>
+
+<p>After going through this obstacle I encountered another one. I am using mechinize and nokogiri in my project to scrape some web pages. In one of the scenarios I am accessing a SSL page. Here is what I got after trying to parse this page:</p>
+
+<pre><code>Net::HTTP::Post: &lt;some_ssl_web_page_address_here&gt;
+request-header: accept =&gt; */*
+request-header: user-agent =&gt; Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+request-header: connection =&gt; keep-alive
+request-header: keep-alive =&gt; 300
+request-header: accept-encoding =&gt; gzip,identity
+request-header: accept-language =&gt; en-us,en;q=0.5
+request-header: host =&gt; my.globul.bg
+request-header: accept-charset =&gt; ISO-8859-1,utf-8;q=0.7,*;q=0.7
+request-header: content-type =&gt; application/x-www-form-urlencoded
+request-header: content-length =&gt; 110
+Rescuing EOF error
+Rescuing EOF error
+Rescuing EOF error
+
+EOFError (end of file reached):
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:135:in `sysread'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:135:in `block in rbuf_fill'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/timeout.rb:52:in `timeout'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/timeout.rb:82:in `timeout'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:134:in `rbuf_fill'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:116:in `readuntil'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:126:in `readline'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:2136:in `read_status_line'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:2125:in `read_new'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:1117:in `transport_request'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:1103:in `request'
+</code></pre>
+
+<p>It turns out that this is a kind of a known problem, which is described <a href="http://github.com/tenderlove/mechanize/issues/#issue/7">here</a>. You can have a look at my comments and <a href="http://github.com/valo/mechanize/commit/e8c9d0ef72f55461ed33d4a0ee283683cb0f83aa">here</a> is a commit, which is fixing the problem. It is still not merged into the mechanize code, because I should come up with a unit test for it.</p>
+
+<h2>Bottomline</h2>
+
+<p>Lol! That was a tough fight! I think that ruby 1.9 and particularly the libs in the ruby community have a long way to go until they are usable by the regular developers. At least the community is driving forward. I haven&#8217;t tried rails 3, but I heard that it has fixed the issues with the encodings in the templates. For the rest of the libs it is just a matter of time to polish all the issues. Until then: give 1.9 a try and report any issues you have.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Integrating custom SQL queries with ActiveRecord]]></title>
+    <link href="http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord/"/>
+    <updated>2009-11-20T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord</id>
+    <content type="html"><![CDATA[<p>I know that some people could start a flame war about what I will discussing right now, so let me first introduce you into the context of the problem.</p>
+
+<!--more-->
+
+
+<h2>Context of the problem</h2>
+
+<p>One of the side projects I am working on right now is a grading system for high school programming problems. It is hosted on a low cost sharing hosting. A specific thing about this is that the database server is also shared and also is quite distant from the application server. This means that every query is adding an overhead of at least 20ms to the execution time (sometimes even 200ms), even if the query takes 0.1ms on the database server. Now imagine that you have an action which makes a linear number of queries depending on the number of the users in the system.</p>
+
+<p>One other limitation is that the memory of the ruby VM is limited to something like 200MB. This means that loading a lot of ActiveRecord objects as a method for reducing the memory usage is not an option, because sooner or later the watchdog of the server will start to kill our ruby processes.</p>
+
+<p>Some of you will say that hosting rails on a shared server is just not serious. My answer is that because we have a fairly low number of hits it is possible to use such hosting, you just have to make some tweaks.</p>
+
+<h2>The schema of the database</h2>
+
+<p>We have the following simplified schema:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:runs</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">column</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Problem</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:runs</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">column</span> <span class="ss">:name</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Run</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:problem</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:user</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">column</span> <span class="ss">:total_points</span><span class="p">,</span> <span class="ss">:integer</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am using a fictional column method to describe the attributes of each table.</p>
+
+<h2>What is the problem we want to solve?</h2>
+
+<p>We want to generate a ranklist of all users into the system. The ranklist is generated as following:</p>
+
+<ol>
+<li><p>Total score: for every user we must compute the maximum score for every problem and sum the maximum scores for all the problems to compute the total score. For example: if there are problem A and problem B, and the user John has 2 submits for problem A with score 50 and score 60, we are going to take a maximum score 60 for problem A. If John has 3 runs for problem B with score 20, 60 and 100, we will take maximum score of 100 for problem B. Given that, John will have a total score of 60 + 100 = 160.</p></li>
+<li><p>Problems solved for 100 points: we compute the number of problems for each user, which has a max score of 100 points. For example in the previous setup only problem B is counted, because the max score John has on it is 100, so John has only 1 problem solved for 100 points.</p></li>
+<li><p>Total runs: for each user we count the number of runs for that user.</p></li>
+</ol>
+
+
+<h2>Solution 1</h2>
+
+<p>It is very easy to solve the above problems using the ActiveRecord associations. Here is how they could be solved with code:</p>
+
+<ol>
+<li>Total score:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="no">User</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">runs</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:problem</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">problem</span><span class="p">,</span> <span class="n">runs</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">runs</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:total_points</span><span class="p">)</span><span class="o">.</span><span class="n">max</span>
+</span><span class='line'>    <span class="k">end</span><span class="o">.</span><span class="n">sum</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Problems solved for 100 points:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="no">User</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">runs</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:problem</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">problem</span><span class="p">,</span> <span class="n">runs</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">runs</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:total_points</span><span class="p">)</span><span class="o">.</span><span class="n">max</span> <span class="o">==</span> <span class="mi">100</span> <span class="o">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="k">end</span><span class="o">.</span><span class="n">sum</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Total runs:</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="no">Run</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="ss">:all</span><span class="p">,</span> <span class="ss">:group</span> <span class="o">=&gt;</span> <span class="ss">:user</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The problem with all these approaches is that they either issue a lot of queries or they load a lot of objects into the memory. Each of these problems makes our application useless in a shared hosting environment.</p>
+
+<h2>Solution 2</h2>
+
+<p>Let&#8217;s try to pack everything into one query and wrap it into ActiveRecord code. We want to compute everything into the database. Making the right indexes should make the things pretty fast.</p>
+
+<p>Adding pure SQL into the code is ugly and I don&#8217;t encourage that at all, but sometimes we have to get our hands dirty. Let&#8217;s at least try to reduce the ugliness by wrapping this into the User module, so that it is neatly packed and easy to refactor.</p>
+
+<p>The following query is computing all I described and also it gets some info about the users. We want to return an array of tuples, where there is a tuple for each user with the needed data and also his/her name. Here is the query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span>
+</span><span class='line'>  <span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">name</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">SUM</span><span class="p">(</span><span class="n">max_points_per_problem</span><span class="p">)</span> <span class="k">as</span> <span class="n">score</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">SUM</span><span class="p">(</span><span class="n">runs_per_problem</span><span class="p">)</span> <span class="k">as</span> <span class="n">runs_count</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">SUM</span><span class="p">(</span><span class="k">CASE</span> <span class="n">max_points_per_problem</span> <span class="k">WHEN</span> <span class="mi">100</span> <span class="k">THEN</span> <span class="mi">1</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span> <span class="k">as</span> <span class="n">full_score</span>
+</span><span class='line'><span class="k">FROM</span> <span class="n">users</span>
+</span><span class='line'><span class="k">LEFT</span> <span class="k">JOIN</span>
+</span><span class='line'>  <span class="p">(</span>
+</span><span class='line'>    <span class="k">SELECT</span>
+</span><span class='line'>      <span class="k">MAX</span><span class="p">(</span><span class="n">total_points</span><span class="p">)</span> <span class="k">as</span> <span class="n">max_points_per_problem</span><span class="p">,</span>
+</span><span class='line'>      <span class="n">user_id</span><span class="p">,</span>
+</span><span class='line'>      <span class="k">COUNT</span><span class="p">(</span><span class="n">runs</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">runs_per_problem</span>
+</span><span class='line'>    <span class="k">FROM</span> <span class="n">runs</span>
+</span><span class='line'>    <span class="k">JOIN</span> <span class="n">problems</span> <span class="k">ON</span> <span class="n">problems</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">problem_id</span>
+</span><span class='line'>    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">problem_id</span>
+</span><span class='line'>  <span class="p">)</span> <span class="k">as</span> <span class="n">problem_points</span>
+</span><span class='line'><span class="k">ON</span> <span class="n">problem_points</span><span class="p">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">users</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">GROUP</span> <span class="k">BY</span> <span class="n">users</span><span class="p">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">score</span> <span class="k">DESC</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now the question is: how to integrate that into our rails code? Here is the answer: using select_all:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">generate_ranklist</span>
+</span><span class='line'>      <span class="n">query</span> <span class="o">=</span> <span class="o">&lt;</span><span class="no">THE_UGLY_THING_I_WROTE_A_FEW_LINES_UPWARDS</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="no">User</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="o">[]</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">row</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">ranklist</span> <span class="o">&lt;&lt;</span> <span class="o">[</span>
+</span><span class='line'>                      <span class="no">User</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:instantiate</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span>
+</span><span class='line'>                      <span class="n">row</span><span class="o">[</span><span class="s1">&#39;score&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>                      <span class="n">row</span><span class="o">[</span><span class="s1">&#39;runs_count&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>                      <span class="n">row</span><span class="o">[</span><span class="s1">&#39;full_solutions&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>                      <span class="n">row</span><span class="o">[</span><span class="s1">&#39;full_score&#39;</span><span class="o">]</span>
+</span><span class='line'>                    <span class="o">]</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p>Using the described method we were able to reduce significantly the number of queries we do, which reduced the execution time on the shared server from several seconds to under a second and we were also fitting into the memory limit, because we are loading only things we really need.</p>
+
+<p>This is also going to help in larger projects running on dedicated servers. It is just a matter of time when scalability issues emerges for an web app. Optimizing the database queries is one of the most beneficial ways for optimization.</p>
+
+<p>WARNING: I am not advocating in any way that you should custom craft all your queries. Most of the cases you don&#8217;t have to do so! Most of the cases only several objects are loaded by the app and a few queries are issued. In the case I describe we are making some very complex aggregations across large amounts of data, which makes ActiveRecord magic very inefficient!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A task for admission of gifted children in Japan]]></title>
+    <link href="http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task/"/>
+    <updated>2009-11-12T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task</id>
+    <content type="html"><![CDATA[<p>This is a task that was given to a group of children for admission in kindergarten for gifted children in Nagoya, Japan. 74% of the children solved it. A hint: they were able to count up to 10.</p>
+
+<!--more-->
+
+
+<pre><code>8809 = 6
+7111 = 0
+2172 = 0
+6666 = 4
+1111 = 0
+3213 = 0
+7662 = 2
+9312 = 1
+0000 = 4
+2222 = 0
+3333 = 0
+5555 = 0
+8193 = 3
+8096 = 5
+7777 = 0
+9999 = 4
+7756 = 1
+6855 = 3
+9881 = 5
+5531 = 0
+6782 = ?
+</code></pre>
+
+<p>Send me a private message in twitter or via email and I will tell you if your answer is correct :-).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby 1.9 vs. Ruby 1.8 real-life speed benchmark, no database]]></title>
+    <link href="http://valentinmihov.com/2009/07/13/ruby_19_vs_ruby_18_benchmark/"/>
+    <updated>2009-07-13T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/07/13/ruby_19_vs_ruby_18_benchmark</id>
+    <content type="html"><![CDATA[<p>I am writing my blog with <a href="http://www.sinatrarb.com/" title="Sinatra">sinatra</a> and I can proudly say that it runs with ruby 1.9.1 just fine. Unfortunately the hosting on <a href="http://heroku.com/" title="Heroku">heroku</a> does not allow using ruby 1.9, so it runs 1.8 in production.</p>
+
+<!--more-->
+
+
+<p>I decided that it will be great to make a benchmark of how the blog runs with the two interpreters. Here are the description and the result.</p>
+
+<h2>Configuration</h2>
+
+<ul>
+<li>Machine: Apple MacBook Pro, 2.5 GHz Intel Core 2 Duo, 4GB 667 MHz DDR2, 250 GB HDD, 5400 RPM, Mac OS X 10.5.7</li>
+<li>Ruby 1.8.7 p72, 64 bit</li>
+<li>Ruby 1.9.1 p0, 64 bit</li>
+<li>Sinatra 0.9.2</li>
+<li>rdiscount 1.3.4</li>
+<li>haml 2.0.9</li>
+<li>thin 1.2.2</li>
+<li>mongrel 1.1.5</li>
+<li>nginx 0.7.61 as reverse proxy</li>
+</ul>
+
+
+<h2>The logic behind the test</h2>
+
+<p>The page that I tested with was doing the following actions:</p>
+
+<ul>
+<li>Open around 18 files from the filesystem and read their first 3 lines</li>
+<li>Parse the lines using regex</li>
+<li>Parse some dates from the data read from the files</li>
+<li>Read 5 of the files in-memory</li>
+<li>Render some HAML templates with content got from the read files</li>
+</ul>
+
+
+<p>There is a git repository with the code. It is my <a href="http://github.com/valo/valentinmihov.com/tree/master">blog</a>.</p>
+
+<h2>The test candidates</h2>
+
+<p>I tested the following configurations:</p>
+
+<ul>
+<li>5 Thin instances running Ruby 1.8 behind nginx reverse proxy</li>
+<li>5 Mongrel instances running Ruby 1.8 behind nginx reverse proxy</li>
+<li>5 Thin instances running Ruby 1.9 behind nginx reverse proxy</li>
+</ul>
+
+
+<p>I use thin because this is the only web server, that compiles against ruby 1.9 on my machine. I even had to compile it myself, because of the 64 bit interpreter that I have (also custom compiled).</p>
+
+<p>The tests were performed with concurrency 10 and 1000 requests. Here is the command line I used:</p>
+
+<pre><code># ab -c 10 -n 1000 http://127.0.0.1:8080/
+</code></pre>
+
+<h2>The results</h2>
+
+<table>
+  <tr>
+    <th>Setup</th>
+    <th>Req/s</th>
+    <th>ms/request</th>
+  </tr>
+  <tr>
+    <td>Ruby 1.8 + thin</td>
+    <td>19.55 </td>
+    <td>511.599</td>
+  </tr>
+  <tr>
+    <td>Ruby 1.8 + mongrel</td>
+    <td>18.07</td>
+    <td>553.511</td>
+  </tr>
+  <tr>
+    <td>Ruby 1.9 + thin</td>
+    <td>42.86</td>
+    <td>233.336</td>
+  </tr>
+</table>
+
+
+<p>Here are some graphs of the results</p>
+
+<p><img src="http://valentinmihov.com/res/Ruby_1.8_vs_Ruby_1.9_ms_per_request.png" alt="Ms per request" />
+<img src="http://valentinmihov.com/res/Ruby_1.8_vs_Ruby_1.9_req_per_sec.png" alt="Requests per second" /></p>
+
+<p>As you see using ruby 1.9 boosts the performance of the application more than 2 times.</p>
+
+<p>Here are links to the extended info generated by ab:</p>
+
+<ul>
+<li><a href="http://valentinmihov.com/res/ruby1.8_mongrel.txt">ruby 1.8 + mongrel</a></li>
+<li><a href="http://valentinmihov.com/res/ruby1.8_thin.txt">ruby 1.8 + thin</a></li>
+<li><a href="http://valentinmihov.com/res/ruby1.9_thin.txt">ruby 1.9 + thin</a></li>
+</ul>
+
+
+<p>I will be glad to hear your comments about the test and your experience with ruby 1.9. For the real enthusiasts this <a href="http://isitruby19.com/">site</a> provides info about what gems are 1.9 compatible.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Weird ERB comment behaviors]]></title>
+    <link href="http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities/"/>
+    <updated>2009-07-08T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities</id>
+    <content type="html"><![CDATA[<p>I encountered some very strange erb behaviors when the you comments in the templates. For example:</p>
+
+<pre><code>&lt;% if true %&gt;
+  Hi from Rails!
+&lt;% end # hi from rails %&gt;
+</code></pre>
+
+<!--more-->
+
+
+<p>The solution: if you want to put comments in ERB templates use this syntax:</p>
+
+<pre><code>&lt;% if true %&gt;
+  Hi from Rails!
+&lt;% end %&gt;
+&lt;%# hi from rails %&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why writing good XHTML matters]]></title>
+    <link href="http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters/"/>
+    <updated>2009-07-06T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters</id>
+    <content type="html"><![CDATA[<p>These days I am working on a large change in our corporate website. It includes  a lot of functional changes as well as a lot of little text tweaks here and there. Our process for making these changes is that the marketing people go through the whole site and generate a large document, which includes all the modifications that should be made. After that the developers go through the large doc and start making the changes. The problem is that this process is <strong>very</strong> inefficient. This is because of the following reasons:</p>
+
+<!--more-->
+
+
+<ul>
+<li>The marketing people need time to generate the changes</li>
+<li>The developers need time to understand the changes. Usually emails are exchanged, because the idea is not clear in all the places</li>
+<li>The developers end up making a lot of find/replace, copy/paste changes, which are nothing more than text editing</li>
+</ul>
+
+
+<p>Sounds familiar, huh?</p>
+
+<p>I was thinking about this and I believe that the problem in the whole process is in the developers and the code base of the web site. In the perfect world the code of the website will be clean XHTML with very well separated CSS style and <a href="http://en.wikipedia.org/wiki/Unobtrusive_JavaScript" title="Unobtrusive JavaScript - Wikipedia, the free encyclopedia">unobstructive javascript</a>. What this means is that the code of the website will be readable by ordinary people, who don&#8217;t understand any of the above things. Therefore these people will be able to easily make simple changes of the text without fearing that they will break something.</p>
+
+<p>You can&#8217;t expect the non-programming people to understand what is javascript, why are these empty div-s here and why do we need them in order to have rounded corners. This reminds me again about the saying &#8220;Source code is intended to be read by humans and sometimes to be able to run on machines&#8221;.</p>
+
+<p>Here is a real argument, why we should not bloat our code. It will save us time in the future and will make our company more effective.</p>
+
+<h2>Bottom line</h2>
+
+<p>If you write clean and understandable code you will not only save time during future maintenance, but your team could be more effective, because non-programming people can make small tweaks.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails Conference in Sofia]]></title>
+    <link href="http://valentinmihov.com/2009/06/25/rails_conf/"/>
+    <updated>2009-06-25T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/06/25/rails_conf</id>
+    <content type="html"><![CDATA[<p>On the 27th of July there will be a small rails conference in Sofia. http://techcamp.eu/2009/06/21/rails-конференция-27-06-2009/ has more info for the event.</p>
+
+<p>I will be speaking on the conference about stubbing and mocking with mocha. I have made an example project on which I will explain my ideas. You can find the latest source <a href="http://github.com/valo/mochar/tree/master">here</a>.</p>
+
+<p>We will see there :-).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello from sinatra and blogxter]]></title>
+    <link href="http://valentinmihov.com/2009/06/24/hello_world/"/>
+    <updated>2009-06-24T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/06/24/hello_world</id>
+    <content type="html"><![CDATA[<p>This is my personal blog, which is powered by several new and exiting technologies for me. Heroku, Sinatra, HAML and RDiscount (markdown).</p>
+
+<!--more-->
+
+
+<p>I decided to call this engine blogxter. It relies purely on the filesystem, which makes blogging very easy task. I just fire up a Textmate and create a new file. The posts are written in markdown. I decided to use it because it is very understandable. In the future I am thinking about trying with AsciiDoc.</p>
+
+<p>The site is hosted on <a href="http://www.heroku.com">Heroku</a> and runs with sinatra. I use HAML for defining the layout and soon I will switch to Sass, when the styles start to get complex.</p>
+
+<p>This is for now. I will soon post the code of the engine on github. Stay connected.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Use git-svn to maintain a stable branch]]></title>
+    <link href="http://valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch/"/>
+    <updated>2008-12-04T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch</id>
+    <content type="html"><![CDATA[<p>These days I discovered that git-svn could be very useful for my workflow. In the project I work now, the development is quite intense and it is not unusual for the latest code, when I get up in the morning and sync with the trunk, not to work properly or to require some reconfiguration. This means that I will need extra time to get everything working, before I am able to start working.</p>
+
+<!--more-->
+
+
+<p>Our repository is SVN and I am using git-svn to track it. So I decided to maintain a branch called &#8220;stable&#8221;, which has everything in a state that I am sure that is working. I am working on this branch and every time I want to push something to the trunk, I switch to the master and execute:</p>
+
+<pre><code>$ git checkout master
+$ git merge stable
+$ git svn dcommit
+</code></pre>
+
+<p>This will merge my changes from the stable branch (which is a trivial merge) and will push my changes on the server. After that I switch back to the stable branch and I don&#8217;t care what is happening with the trunk.</p>
+
+<p>Every several days I update my stable version with the trunk.</p>
+
+<p>This whole thing is saving me a lot of hours or reconfiguring and tracking regressions and I can invest these hours into real development. Git rulz :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Falling in love with git]]></title>
+    <link href="http://valentinmihov.com/2008/11/03/falling_in_love_with_git/"/>
+    <updated>2008-11-03T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2008/11/03/falling_in_love_with_git</id>
+    <content type="html"><![CDATA[<p>I few weeks ago I decided to try to use <a href="http://en.wikipedia.org/wiki/Git_(software">git</a>) in my everyday workflow. In <a href="http://www.dreambox.com">DreamBox</a> we are using SVN, so I had to use git-svn.</p>
+
+<p>To be honest, first it was hard. The main problem was to get the ideas behind git and to find the right commands for doing the everyday stuff. After several days of working with it I really fell in love. Now I am using it as my main version control system. What I really like is that I can easily branch the code and start working on something experimental and at the moment I decide that it is ready to be integrated in the product I just merge it in the main code branch with the whole history of developing it. The other great thing is that I have the <em>whole</em> history on my machine and I can work offline.</p>
+
+<!--more-->
+
+
+<p>But, there are some weaknesses, particularly in the git-svn bridge, which definitely need some more work. The major one is the support for external repositories. Right now there is no support for that in git-svn, so I had to make a separate repository for each external one. After that I wrote a script for updating the whole repo. Here is the code:</p>
+
+<pre><code>#/bin/bash
+
+DIRS="git-repo-1 git-repo-2 git-repo-3"
+
+for d in $DIRS; do
+pushd $d &gt; /dev/null
+
+# Search for sub repositories
+for subd in `find . -iname .git`; do
+echo "**** START ****"
+pushd $subd
+cd ..
+
+CHANGES=`git status | grep 'working directory clean'`
+
+if [[ $CHANGES ]]; then
+  git svn rebase
+else
+  git stash &amp;&amp; git svn rebase &amp;&amp; git stash apply
+fi
+
+if [[ ! $? ]]; then
+  echo "Error updaing $d!"
+  exit 1
+fi
+
+popd
+echo "**** END ****"
+done
+
+popd &gt; /dev/null
+done
+</code></pre>
+
+<p>This bash script will go through a list of repositories (in the example these are git-repo-1, git-repo-2&#8230;) and will search for sub-repositories in their tree. If it finds any, it will stash the current changes (if any) and will rebase the code with the latest one. I requires some mode polishing, but as a whole it is working well.</p>
+
+<p>The other weaknesses are that the GUI tools for working with git are not as many as the ones for SVN and also they are not so pretty-looking. This is a problem for people, who are not developers and are used to work with nice visual tools (in our company there are lots of them). For people, like me, who are used to work from command line this is not a problem.</p>
+
+<p>The other problem, which I am concerned about is the windows support for git. I didn&#8217;t have the time to investigate that, because it will require me to install windows, but I see that there are a lot of effort thrown in that direction. I hope that the support is good, because many people are using windows as a development platform. Unfortunately I am a little bit doubtful about that and I will expect to have problems with the windows port.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dreambox.com - the revolution in the online learning]]></title>
+    <link href="http://valentinmihov.com/2008/11/01/dreambox_the_revolution/"/>
+    <updated>2008-11-01T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2008/11/01/dreambox_the_revolution</id>
+    <content type="html"><![CDATA[<p>I haven&#8217;t written anything about the company I am working right now. May be one of the reasons is that my free time is highly limited (I guess working in a start-up is aways like that ;-)).</p>
+
+<!--more-->
+
+
+<p>Well, the company is <a href="http://www.dreambox.com">dreambox.com</a> and our main goal is to revolutionize the way the on-line learning is functioning. The idea is to provide personalized on-line learning. Right now we are focused on building on-line learning platform, which is targeted at teaching math to small children. Expect more interesting information to come.</p>
+
+<p>I also have posts in the company blog. Right now it is only one with the idea of increasing. Check it out <a href="http://www.dreambox.com/blog/pushing-the-kids-from-very-early-age-why-dont-we-just-let-them-have-fun/221/">here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hacking the package TTL with DD-WRT]]></title>
+    <link href="http://valentinmihov.com/2008/08/07/hacking_ttl_with_dd-wrt/"/>
+    <updated>2008-08-07T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/08/07/hacking_ttl_with_dd-wrt</id>
+    <content type="html"><![CDATA[<p>Some ISPs are changing the TTL of the packets going to their customers to protect from splitting the network accounts to several people. This could be quite annoying when a person wants to use a wireless router, so she could use her laptop/ipod/whatever-you-like from every point in the house. Of course there is a solution. Here is mine:</p>
+
+<!--more-->
+
+
+<ol>
+<li><p>Get a Linksys WRT54GL wireless router (it runs linux!!!)</p></li>
+<li><p>Install <a href="http://dd-wrt.com">DD-WRT</a> firmware on it</p></li>
+<li><p>Go to the web interface of the router (usually http://192.168.1.1). Go to Administration->Commands and enter the following in the Commands textbox:</p>
+
+<pre><code> iptables -t mangle -I PREROUTING -i vlan1 -j TTL --ttl-set 128
+</code></pre></li>
+<li><p>Hit &#8220;Save Firewall&#8221; and you are ready to go!</p></li>
+</ol>
+
+
+<p>This will set the TTL of all incoming packets to 128 ;-)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The game of Breakit!]]></title>
+    <link href="http://valentinmihov.com/2008/08/07/game_of_breakit/"/>
+    <updated>2008-08-07T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/08/07/game_of_breakit</id>
+    <content type="html"><![CDATA[<p>When I was still in high school I wrote a game. It was a cloning of the famous Arcanoid game and was written in <a href="http://www.talula.demon.co.uk/allegro/">Allegro</a>. The unique feature of the game is that it supports multiplayer on one PC, which is something like deathmatch. Today I found the source and opened a project in Google Code. Here is it: <a href="http://code.google.com/p/breakin/">http://code.google.com/p/breakin/</a> (the project is called breakin, because breakit is used for another project in sourceforge).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The greatest demo video *ever*]]></title>
+    <link href="http://valentinmihov.com/2008/07/31/greatest_demo_video_ever/"/>
+    <updated>2008-07-31T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/07/31/greatest_demo_video_ever</id>
+    <content type="html"><![CDATA[<p><a href="http://static.zoho.com/meeting/docs/demo/demo.html">http://static.zoho.com/meeting/docs/demo/demo.html</a></p>
+
+<p>I don&#8217;t have anything against people with strange English accents (I guess that I also have one), but to make a video showing your product like this it not one of the greatest things a company can make.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The song about the bottles sang by a C programmer]]></title>
+    <link href="http://valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
+    <updated>2008-07-01T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/07/01/bottles_programmer_song</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># ./sing_ten_bottles_song</span>
+</span><span class='line'>NULL green bottleshanging on the wall,
+</span><span class='line'>NULL green bottleshanging on the wall,
+</span><span class='line'>And <span class="k">if </span>one green bottle
+</span><span class='line'>Should accidentally fall
+</span><span class='line'>
+</span><span class='line'>Segmentation fault#
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The big question is on which line exactly the segmentation fault will be thrown? ;-)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing the rails native mysql bindings for a "fink" mysql]]></title>
+    <link href="http://valentinmihov.com/2008/06/17/rails_native_mysql_install/"/>
+    <updated>2008-06-17T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/06/17/rails_native_mysql_install</id>
+    <content type="html"><![CDATA[<p>I am using Mac OS X Leopard and I have the package manager <a href="http://www.finkproject.org/">fink</a> for installing open source software. I have used fink to install mysql and today it turned out that this was a horrible mistake.</p>
+
+<p>I lost around 1:30 hours for figure out how to compile the mysql gem. The installer was not able to find the mysql libraries and includes. The magic line turned out to be:</p>
+
+<pre><code># gem install mysql -- --with-mysql-config=`which mysql_config`
+</code></pre>
+
+<p>This makes the install just a piece of cake! :)</p>
+]]></content>
+  </entry>
+  
+</feed>

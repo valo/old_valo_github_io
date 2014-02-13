@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: fun | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/fun/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A task for admission of gifted children in Japan]]></title>
+    <link href="http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task/"/>
+    <updated>2009-11-12T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task</id>
+    <content type="html"><![CDATA[<p>This is a task that was given to a group of children for admission in kindergarten for gifted children in Nagoya, Japan. 74% of the children solved it. A hint: they were able to count up to 10.</p>
+
+<!--more-->
+
+
+<pre><code>8809 = 6
+7111 = 0
+2172 = 0
+6666 = 4
+1111 = 0
+3213 = 0
+7662 = 2
+9312 = 1
+0000 = 4
+2222 = 0
+3333 = 0
+5555 = 0
+8193 = 3
+8096 = 5
+7777 = 0
+9999 = 4
+7756 = 1
+6855 = 3
+9881 = 5
+5531 = 0
+6782 = ?
+</code></pre>
+
+<p>Send me a private message in twitter or via email and I will tell you if your answer is correct :-).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The greatest demo video *ever*]]></title>
+    <link href="http://valentinmihov.com/2008/07/31/greatest_demo_video_ever/"/>
+    <updated>2008-07-31T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/07/31/greatest_demo_video_ever</id>
+    <content type="html"><![CDATA[<p><a href="http://static.zoho.com/meeting/docs/demo/demo.html">http://static.zoho.com/meeting/docs/demo/demo.html</a></p>
+
+<p>I don't have anything against people with strange English accents (I guess that I also have one), but to make a video showing your product like this it not one of the greatest things a company can make.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The song about the bottles sang by a C programmer]]></title>
+    <link href="http://valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
+    <updated>2008-07-01T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2008/07/01/bottles_programmer_song</id>
+    <content type="html"><![CDATA[<p>``` bash</p>
+
+<pre><code># ./sing_ten_bottles_song
+NULL green bottleshanging on the wall,
+NULL green bottleshanging on the wall,
+And if one green bottle
+Should accidentally fall
+
+Segmentation fault#
+</code></pre>
+
+<p>```</p>
+
+<p>The big question is on which line exactly the segmentation fault will be thrown? ;-)</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,38 @@
+Ruby 1.8 + Mongrel
+
+Server Software:        nginx/0.7.61
+Server Hostname:        127.0.0.1
+Server Port:            8080
+
+Document Path:          /
+Document Length:        9316 bytes
+
+Concurrency Level:      10
+Time taken for tests:   55.351 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      9497000 bytes
+HTML transferred:       9316000 bytes
+Requests per second:    18.07 [#/sec] (mean)
+Time per request:       553.511 [ms] (mean)
+Time per request:       55.351 [ms] (mean, across all concurrent requests)
+Transfer rate:          167.56 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0      10
+Processing:    78  551 796.8    145    2426
+Waiting:       78  524 747.8    143    2331
+Total:         78  552 796.8    145    2426
+
+Percentage of the requests served within a certain time (ms)
+  50%    145
+  66%    181
+  75%    285
+  80%    739
+  90%   2171
+  95%   2242
+  98%   2301
+  99%   2324
+ 100%   2426 (longest request)

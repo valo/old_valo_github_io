@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rails | Valentin Mihov's blog]]></title>
+  <link href="http://valentinmihov.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T16:00:47+02:00</updated>
+  <id>http://valentinmihov.com/</id>
+  <author>
+    <name><![CDATA[Valentin Mihov]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running Ruby 1.9.1 + Rails + MySQL and unicode characters]]></title>
+    <link href="http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
+    <updated>2010-02-23T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
+    <content type="html"><![CDATA[<p>If you have tried to develop some rails application on Rails + Ruby 1.9.1 and MySQL database and you are storing non-English characters in your database probably you had a lot of pain with errors about incompatible charsets. This is a known problem and there is even <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2476-ascii-8bit-encoding-of-query-results-in-rails-232-and-ruby-191">a bug in Rails' lighthouse</a> for it. There is even a hack which is going around the issue. The solution is not perfect, but it works in most of the cases.</p>
+
+<!--more-->
+
+
+<p>The problem in a nutshell is that the MySQL Ruby lib is not respecting the encoding setting defined in the database.yml file and does not encode the strings, that are pulled from the database in that encoding. Here is an example database.yml, which defines the encoding of the database connection:</p>
+
+<p>``` yml</p>
+
+<pre><code>development:
+  adapter: mysql
+  database: gsm_dev
+  username: root
+  password: 
+  encoding: utf8
+</code></pre>
+
+<p>```</p>
+
+<p>Fortunately there is a nice solution I found: use the <a href="http://github.com/tmtm/ruby-mysql" title="tmtm's ruby-mysql at 2.9 - GitHub">ruby-mysql</a> lib. It is on <a href="http://gemcutter.org/" title="RubyGems.org | your community gem host">gemcutter</a> so you can do:</p>
+
+<p>``` bash</p>
+
+<pre><code>gem uninstall mysql &amp;&amp; gem install ruby-mysql
+</code></pre>
+
+<p>```</p>
+
+<p>This is going to uninstall the buggy mysql lib and install the working ruby-mysql. Hope that helps!</p>
+
+<p>P.S.: I am not sure that this is a production-ready solution, but at least it provides a way to run things without hacks until the MySQL C API is fixed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 2]]></title>
+    <link href="http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/"/>
+    <updated>2010-02-12T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2</id>
+    <content type="html"><![CDATA[<p>My journey into the ruby 1.9 land continues with some nice observations, tricks and tips.</p>
+
+<!--more-->
+
+
+<h2>Debugger still not working</h2>
+
+<p>I just discovered something interesting. It is not really a big deal, but it is something to keep in mind:</p>
+
+<pre><code>$ gem1.9 install ruby-debug
+Building native extensions.  This could take a while...
+ERROR:  Error installing ruby-debug:
+    ERROR: Failed to build gem native extension.
+
+/usr/local/Cellar/ruby/1.9.1-p376/bin/ruby1.9 extconf.rb
+Can't handle 1.9.x yet
+</code></pre>
+
+<p>Obviously the debugger is still not working on ruby 1.9.</p>
+
+<h2>Using the rails console with ruby 1.9</h2>
+
+<p>There is a slight catch if you want to use the console. If you just do</p>
+
+<pre><code>./script/console
+</code></pre>
+
+<p>you will notice many strange behavior, like broken unicode characters and even core dumps like the one below if you have unpacked native gems in your project.</p>
+
+<pre><code>(3830) malloc: *** error for object 0x1027ec038: pointer being reallocated was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap
+</code></pre>
+
+<p>The problem is that the console is actually using the system default irb, which was using ruby 1.8 on my machine. In order to use the 1.9 irb you should do the following:</p>
+
+<pre><code>./script/console --irb=irb1.9
+</code></pre>
+
+<p>This is if your 1.9 irb is called irb1.9</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1]]></title>
+    <link href="http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
+    <updated>2010-01-20T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
+    <content type="html"><![CDATA[<p>I decided to use ruby 1.9.1 for my next project. One of the reasons I decided so is because ruby 1.9 is definitely faster than 1.8 and also it has a superior encoding support for the strings. Not to mention that living on the edge is a thrill :-)</p>
+
+<!--more-->
+
+
+<h2>Setup</h2>
+
+<p>I am working on a MacBook Pro with Mac OS X 10.6.2. I installed <a href="http://github.com/mxcl/homebrew" title="mxcl's homebrew at master - GitHub">homebrew</a> so I can install ruby 1.9. Because I don't want to override my ruby 1.8 install I had to make a change in the formula for ruby. I added a --program-suffix=1.9 to the configure script. Here is how it will look:</p>
+
+<pre><code>system "./configure", "--prefix=#{prefix}",
+                      "--disable-debug",
+                      "--disable-dependency-tracking",
+                      "--enable-shared",
+                      "--program-suffix=1.9"
+</code></pre>
+
+<p>After that I did:</p>
+
+<pre><code>gem1.9 install rails mechanize nokogiri formtastic
+</code></pre>
+
+<p>After some glitches, because I had a previous install of ruby 1.9 on my machine everything ran well.</p>
+
+<h2>Creating the rails app. Problems start to appear</h2>
+
+<p>I created the rails project and here my first serious problem struck.</p>
+
+<p>When I try to run</p>
+
+<pre><code>ruby1.9 ./script/server
+</code></pre>
+
+<p>I receive</p>
+
+<pre><code>Loading development environment (Rails 2.3.5)
+Missing the Rails 2.3.5 gem. Please `gem install -v=2.3.5 rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.
+</code></pre>
+
+<p>A workaround for this is to do</p>
+
+<pre><code>rake1.9 rails:freeze:gems
+</code></pre>
+
+<p>It is going to freeze the rails framework into the vendor folder and the server is able to run from there on. I noted to myself that I will have to unpack all the gems that I use in the project. This is really not a big deal for me, so I just continued from there on.</p>
+
+<h2>Unicode templates. The biggest pain so far.</h2>
+
+<p>I wrote my first template with some unicode symbols in it (the project is in Bulgarian) and when I tried to render the template I received an error:</p>
+
+<pre><code>invalid byte sequence in US-ASCII
+</code></pre>
+
+<p>This was quite frustrating, but after some research I figured out that the reason for this is the default encoding of the ruby VM. It is using the LANG environment variable to determine that. My LANG was empty so it assumed US-ASCII. An easy way to test what is your default encoding is to do:</p>
+
+<pre><code>$ irb1.9
+&gt;&gt; __ENCODING__
+=&gt; #&lt;Encoding:US-ASCII&gt;
+&gt;&gt; 
+</code></pre>
+
+<p>This means that ruby will load all files with this encoding by default, which also includes the templates. The way to fix this is to set the LANG var:</p>
+
+<pre><code>$ export LANG=en_US.UTF-8 &amp;&amp; irb1.9
+&gt;&gt; __ENCODING__
+=&gt; #&lt;Encoding:UTF-8&gt;
+&gt;&gt; 
+</code></pre>
+
+<p>This fixes this error, but causes a new one:</p>
+
+<pre><code>incompatible character encodings: ASCII-8BIT and UTF-8
+</code></pre>
+
+<p>This was a tough one. It turned out that there is a bug about this in the rails' lighthouse: <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2188-i18n-fails-with-multibyte-strings-in-ruby-19-similar-to-2038">here</a></p>
+
+<p>Using the workaround of Hektor fixed the issue, although it is not perfect, because it forces the encoding of the erb templates to utf-8, which will not work if you use some other encoding.</p>
+
+<h2>Mechanize and SSL pages</h2>
+
+<p>After going through this obstacle I encountered another one. I am using mechinize and nokogiri in my project to scrape some web pages. In one of the scenarios I am accessing a SSL page. Here is what I got after trying to parse this page:</p>
+
+<pre><code>Net::HTTP::Post: &lt;some_ssl_web_page_address_here&gt;
+request-header: accept =&gt; */*
+request-header: user-agent =&gt; Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/418 (KHTML, like Gecko) Safari/417.9.3
+request-header: connection =&gt; keep-alive
+request-header: keep-alive =&gt; 300
+request-header: accept-encoding =&gt; gzip,identity
+request-header: accept-language =&gt; en-us,en;q=0.5
+request-header: host =&gt; my.globul.bg
+request-header: accept-charset =&gt; ISO-8859-1,utf-8;q=0.7,*;q=0.7
+request-header: content-type =&gt; application/x-www-form-urlencoded
+request-header: content-length =&gt; 110
+Rescuing EOF error
+Rescuing EOF error
+Rescuing EOF error
+
+EOFError (end of file reached):
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:135:in `sysread'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:135:in `block in rbuf_fill'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/timeout.rb:52:in `timeout'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/timeout.rb:82:in `timeout'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:134:in `rbuf_fill'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:116:in `readuntil'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/protocol.rb:126:in `readline'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:2136:in `read_status_line'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:2125:in `read_new'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:1117:in `transport_request'
+  /usr/local/Cellar/ruby/1.9.1-p376/lib/ruby1.9/1.9.1/net/http.rb:1103:in `request'
+</code></pre>
+
+<p>It turns out that this is a kind of a known problem, which is described <a href="http://github.com/tenderlove/mechanize/issues/#issue/7">here</a>. You can have a look at my comments and <a href="http://github.com/valo/mechanize/commit/e8c9d0ef72f55461ed33d4a0ee283683cb0f83aa">here</a> is a commit, which is fixing the problem. It is still not merged into the mechanize code, because I should come up with a unit test for it.</p>
+
+<h2>Bottomline</h2>
+
+<p>Lol! That was a tough fight! I think that ruby 1.9 and particularly the libs in the ruby community have a long way to go until they are usable by the regular developers. At least the community is driving forward. I haven't tried rails 3, but I heard that it has fixed the issues with the encodings in the templates. For the rest of the libs it is just a matter of time to polish all the issues. Until then: give 1.9 a try and report any issues you have.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Integrating custom SQL queries with ActiveRecord]]></title>
+    <link href="http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord/"/>
+    <updated>2009-11-20T00:00:00+02:00</updated>
+    <id>http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord</id>
+    <content type="html"><![CDATA[<p>I know that some people could start a flame war about what I will discussing right now, so let me first introduce you into the context of the problem.</p>
+
+<!--more-->
+
+
+<h2>Context of the problem</h2>
+
+<p>One of the side projects I am working on right now is a grading system for high school programming problems. It is hosted on a low cost sharing hosting. A specific thing about this is that the database server is also shared and also is quite distant from the application server. This means that every query is adding an overhead of at least 20ms to the execution time (sometimes even 200ms), even if the query takes 0.1ms on the database server. Now imagine that you have an action which makes a linear number of queries depending on the number of the users in the system.</p>
+
+<p>One other limitation is that the memory of the ruby VM is limited to something like 200MB. This means that loading a lot of ActiveRecord objects as a method for reducing the memory usage is not an option, because sooner or later the watchdog of the server will start to kill our ruby processes.</p>
+
+<p>Some of you will say that hosting rails on a shared server is just not serious. My answer is that because we have a fairly low number of hits it is possible to use such hosting, you just have to make some tweaks.</p>
+
+<h2>The schema of the database</h2>
+
+<p>We have the following simplified schema:</p>
+
+<p>``` ruby</p>
+
+<pre><code>class User &lt; ActiveRecord::Base
+  has_many :runs
+
+  column :name, :string
+end
+
+class Problem &lt; ActiveRecord::Base
+  has_many :runs
+
+  column :name
+end
+
+class Run &lt; ActiveRecord::Base
+  belongs_to :problem
+  belongs_to :user
+
+  column :total_points, :integer
+end
+</code></pre>
+
+<p>```</p>
+
+<p>I am using a fictional column method to describe the attributes of each table.</p>
+
+<h2>What is the problem we want to solve?</h2>
+
+<p>We want to generate a ranklist of all users into the system. The ranklist is generated as following:</p>
+
+<ol>
+<li><p>Total score: for every user we must compute the maximum score for every problem and sum the maximum scores for all the problems to compute the total score. For example: if there are problem A and problem B, and the user John has 2 submits for problem A with score 50 and score 60, we are going to take a maximum score 60 for problem A. If John has 3 runs for problem B with score 20, 60 and 100, we will take maximum score of 100 for problem B. Given that, John will have a total score of 60 + 100 = 160.</p></li>
+<li><p>Problems solved for 100 points: we compute the number of problems for each user, which has a max score of 100 points. For example in the previous setup only problem B is counted, because the max score John has on it is 100, so John has only 1 problem solved for 100 points.</p></li>
+<li><p>Total runs: for each user we count the number of runs for that user.</p></li>
+</ol>
+
+
+<h2>Solution 1</h2>
+
+<p>It is very easy to solve the above problems using the ActiveRecord associations. Here is how they could be solved with code:</p>
+
+<ol>
+<li>Total score:</li>
+</ol>
+
+
+<p>``` ruby
+  User.all.map do |user|</p>
+
+<pre><code>user.runs.group_by(&amp;:problem) do |problem, runs|
+  runs.map(&amp;:total_points).max
+end.sum
+</code></pre>
+
+<p>  end
+```</p>
+
+<ol>
+<li>Problems solved for 100 points:</li>
+</ol>
+
+
+<p>```
+  User.all.map do |user|</p>
+
+<pre><code>user.runs.group_by(&amp;:problem) do |problem, runs|
+  runs.map(&amp;:total_points).max == 100 ? 1 : 0
+end.sum
+</code></pre>
+
+<p>  end
+```</p>
+
+<ol>
+<li>Total runs:</li>
+</ol>
+
+
+<p><code>ruby
+  Run.count(:all, :group =&gt; :user)
+</code></p>
+
+<p>The problem with all these approaches is that they either issue a lot of queries or they load a lot of objects into the memory. Each of these problems makes our application useless in a shared hosting environment.</p>
+
+<h2>Solution 2</h2>
+
+<p>Let's try to pack everything into one query and wrap it into ActiveRecord code. We want to compute everything into the database. Making the right indexes should make the things pretty fast.</p>
+
+<p>Adding pure SQL into the code is ugly and I don't encourage that at all, but sometimes we have to get our hands dirty. Let's at least try to reduce the ugliness by wrapping this into the User module, so that it is neatly packed and easy to refactor.</p>
+
+<p>The following query is computing all I described and also it gets some info about the users. We want to return an array of tuples, where there is a tuple for each user with the needed data and also his/her name. Here is the query:</p>
+
+<p>``` sql</p>
+
+<pre><code>SELECT 
+  users.id, 
+  name, 
+  SUM(max_points_per_problem) as score, 
+  SUM(runs_per_problem) as runs_count,
+  SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_score
+FROM users
+LEFT JOIN
+  (
+    SELECT
+      MAX(total_points) as max_points_per_problem,
+      user_id,
+      COUNT(runs.id) as runs_per_problem
+    FROM runs
+    JOIN problems ON problems.id = problem_id
+    GROUP BY user_id, problem_id
+  ) as problem_points
+ON problem_points.user_id = users.id
+GROUP BY users.id
+ORDER BY score DESC
+</code></pre>
+
+<p>```</p>
+
+<p>Now the question is: how to integrate that into our rails code? Here is the answer: using select_all:</p>
+
+<p>``` ruby</p>
+
+<pre><code>class User &lt; ActiveRecord::Base
+  class &lt;&lt; self
+    def generate_ranklist
+      query = &lt;THE_UGLY_THING_I_WROTE_A_FEW_LINES_UPWARDS&gt;
+
+      User.connection.select_all(query).inject([]) do |ranklist, row|
+        ranklist &lt;&lt; [
+                      User.send(:instantiate, row), 
+                      row['score'], 
+                      row['runs_count'], 
+                      row['full_solutions'], 
+                      row['full_score']
+                    ]
+      end
+    end
+  end
+end
+</code></pre>
+
+<p>```</p>
+
+<h2>Conclusion</h2>
+
+<p>Using the described method we were able to reduce significantly the number of queries we do, which reduced the execution time on the shared server from several seconds to under a second and we were also fitting into the memory limit, because we are loading only things we really need.</p>
+
+<p>This is also going to help in larger projects running on dedicated servers. It is just a matter of time when scalability issues emerges for an web app. Optimizing the database queries is one of the most beneficial ways for optimization.</p>
+
+<p>WARNING: I am not advocating in any way that you should custom craft all your queries. Most of the cases you don't have to do so! Most of the cases only several objects are loaded by the app and a few queries are issued. In the case I describe we are making some very complex aggregations across large amounts of data, which makes ActiveRecord magic very inefficient!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Weird ERB comment behaviors]]></title>
+    <link href="http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities/"/>
+    <updated>2009-07-08T00:00:00+03:00</updated>
+    <id>http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities</id>
+    <content type="html"><![CDATA[<p>I encountered some very strange erb behaviors when the you comments in the templates. For example:</p>
+
+<pre><code>&lt;% if true %&gt;
+  Hi from Rails!
+&lt;% end # hi from rails %&gt;
+</code></pre>
+
+<!--more-->
+
+
+<p>The solution: if you want to put comments in ERB templates use this syntax:</p>
+
+<pre><code>&lt;% if true %&gt;
+  Hi from Rails!
+&lt;% end %&gt;
+&lt;%# hi from rails %&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

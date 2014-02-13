@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Valentin Mihov's blog</title>
+  <meta name="author" content="Valentin Mihov">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://valentinmihov.com/blog/page/3">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="Valentin Mihov's blog" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-9529494-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Valentin Mihov's blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="http://google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:valentinmihov.com">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <div class="blog-index">
+      
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-04-23T00:00:00+03:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/04/23/visual_studio_compiler_oddness/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/04/23/visual_studio_compiler_oddness/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/04/23/visual_studio_compiler_oddness/">An interesting compiler oddness in Visual Studio C++</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>A few days ago I stumbled to a very interesting behavior of the Visual Studio C++ compiler. Here is a simple code illustrating it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;cstdio&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;map&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">gmap</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="n">bool</span> <span class="n">use_global_map</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">use_global_map</span> <span class="o">?</span> <span class="n">gmap</span> <span class="o">:</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">m</span><span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;This is a changed value&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">gmap</span><span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Initial value&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">test</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Value in map with false arg: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">gmap</span><span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">].</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class='line'>  <span class="n">test</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Value in map with true arg: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">gmap</span><span class="p">[</span><span class="s">&quot;A&quot;</span><span class="p">].</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this code there is an error and it is an initialization of the reference in the test function with a map, which is local for the conditional expression. This means that the reference will be initialized with an object, which will be destroyed after the line is executed.</p>
+
+<p>The problem is that VC++ allows you to write this. The more interesting thing is how this code will behave. It turns out that whatever value you pass to the test function it will always behave like you created a new map and initialized the reference with it. So, gmap will never be changed!</p>
+
+<p>Compiling this code with GCC gives an error, which is the correct behavior for this kind of expressions.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-03-10T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/03/10/c_template_notes/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/03/10/c_template_notes/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/03/10/c_template_notes/">Интересна забележка отностно темплейтите в C++</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Тъй като в момента портвам едни сорсове за GCC се натъкнах на много интересна несъвместимост между VC++ и GCC. В последствие се оказа, че това е пренебрегване на VC++ на стандарта (сефте!). Ето за какво става дума:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">template</span> <span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B</span> <span class="p">{</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="kt">void</span> <span class="n">g</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// bad (even though some compilers erroneously (temporarily?) accept it)</span>
+</span><span class='line'>    <span class="n">B</span><span class="o">::</span><span class="n">Xyz</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// bad (even though some compilers erroneously (temporarily?) accept it)</span>
+</span><span class='line'>    <span class="n">B</span><span class="o">::</span><span class="n">Pqr</span> <span class="n">y</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>трябва да се напише по следният начин:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">template</span> <span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B</span> <span class="p">{</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="kt">void</span> <span class="n">g</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">typename</span> <span class="n">B</span><span class="o">::</span><span class="n">Xyz</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// good</span>
+</span><span class='line'>    <span class="k">typename</span> <span class="n">B</span><span class="o">::</span><span class="n">Pqr</span> <span class="n">y</span><span class="p">;</span>  <span class="c1">// good</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ето и линкче от където са взети примерите (не поствам моя код заради NDA): <a href="http://www.parashift.com/c++-faq-lite/templates.html#faq-35.18">инфо</a></p>
+
+<p>Между другото горният сайт е може би един най-ценните ресурси за C++ и то най-вече за по-сериозните неща в езика.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-03-05T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/03/05/smtp_pop3_javamail/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/03/05/smtp_pop3_javamail/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/03/05/smtp_pop3_javamail/">SMTPs и POP3s с JavaMail</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Тези дни ми се наложи да се боря с JavaMail и поддръжката му на SSL/TLS за вързване към мейл сървърите. На пръв поглед от документацията се вижда, че това се поддържа от API-то и не би трябвало да има проблеми с интеграцията. На втори поглед, както винаги, се разбира че всъщност нещата не стоят толкова просто.</p>
+
+<ul>
+<li><p>Първото нещо, което прави впечатление след като вече имаме конфигурирани сървъри и приложение, което се вързва към тях е, че ако използваме тестови сертификати, които не са подписани от достоверно certificate authority приложението ни ще гърми с грешка от сорта на:</p>
+
+<p> sun.security.provider.certpath.SunCertPathBuilderException:
+ unable to find valid certification path to requested target</p>
+
+<p>Това се получава, защото JVM не може да вярва на сертификата отсреща. За целта има един файл, които съдържа всички сертификати, на които Java вярва и той се намира в %JAVA_HOME%\jre\lib\security\cacerts. Защитен е с парола, която по подразбиране е &#8220;changeit&#8221;. За да преодолеем горния проблем трябва да направил следното:</p>
+
+<blockquote><p>cd &#8220;C:\Program Files\Java\jdk1.5.0_09\jre\lib\security&#8221;
+&#8230;.\bin\keytool.exe -import -trustcacerts -storepass changeit -alias \
+  mykey -keystore cacerts -file E:\pop3d.pem</p></blockquote>
+
+<p>Това ще &#8220;вкара&#8221; сертификата в trusted сертификатите под името mykey. Ако това име вече съществува не е проблем да се ползва произволно.</p></li>
+<li><p>Нагласяне на версиите на SSL/TLS.</p>
+
+<p>Нещо, което почти ме накара да се хвърля от прозореца (спря ме само това, че е прекалено ниско ;-)). Като цяло в Java 1.5 и нагоре има поддръжка на SSLv3 и TLS 1.0 (<a href="http://java.sun.com/javase/6/docs/technotes/guides/security/jsse/JSSERefGuide.html#SunJSSE">инфо</a>). Обаче ако някой сървър настоява за SSLv2, това ще накара Java да хвърли грешка. Интересното е, че използвайки OpenSSL 0.9.8g със SSLv3 нещата не работят, тъй като сървъра се оплаква, че не може да декриптира пакетите от клиента. Това е интересна тема за разследване.</p></li>
+<li><p>Конфигуриране на postfix и courier</p></li>
+</ul>
+
+
+<p>В postfix има една опция с която може да си поиграе човек: smtpd_tls_mandatory_ciphers. Там може да се зададе какъв точно протокол да се ползва. Аз специално не успях да го подкарам със SSLv3 и съм оставил стойността по подразбиране.</p>
+
+<p>В courier има няколко опции, които са доста важни. Едната е TLS_PROTOCOL, която оказва какъв протокол да се ползва. Интересното, че единствения начин, по които аз успях да го подкарам е като задам SSL23, което е НЕДОКУМЕНТИРАНА СТОЙНОСТ! Всякаква друга стойност там прецаква нещата. Другата е POP3_TLS_REQUIRED. Това е дали да се изисква STARTTLS (държа да отбележа, че това е за pop3 сървъра), което за съжаление е неподдържана функционалност от JavaMail и трябва да е изключено.</p>
+
+<p>Ако имам време ще разуча още малко нещата. Иска ми се да направя клиент, който може да се свързва към сървъри със всякакви конфигурации.</p>
+
+<p><em>Edit:</em> Една много полезна статия, която обяснява нещата на разбираем език: <a href="http://sial.org/howto/openssl/tls-name/">http://sial.org/howto/openssl/tls-name/</a></p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-25T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/02/25/itunes_artwork/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/02/25/itunes_artwork/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/02/25/itunes_artwork/">iPod touch и как да си свалим artwork в iTunes</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Преди 1-2 дена се сдобих с новият ми iPod Touch. Готина джажа и определено има много потенциал. Екрана наистина е нещо страхотно, а това че е 100% touch-screen, го прави още по-готин.</p>
+
+<p>Във връзка с това и след като се оказах доста трудно подвижен след прекараната по пистите на Витоша неделя, реших че е крайно време да си организирам музиката и най-вече тази, която най-много слушам. След като реших, че е редно всеки един албум да има и artwork, така че да мога да си разлиствам албумите в cover flow на ipod-a, тръгнах да търся лесен начин това да стане автоматично. Оказа се, че има една много полезна програмка, писна от няколко доста млади студент от щатите. Хвала на таквизи млади хора. Много се кефя, когато видя оригинални идеи на млади хора. Става въпрос за <a href="http://nclasssoftware.com/corripio">Corripio</a>. Идеята е че тя чете всички песни от iTunes и после може да търси за обложки, текстове и да оправя тагове. Аз я ползвам само за обложки и бих казал, че се справя доста добре.</p>
+
+<p>Нещо много интересно: начина на търсене е направен доста интелигентно и разширяемо. Има скриптове писани на какъвто и да е език, който се поддържа от системата, които по подаден албум и песен търсят url-и към обложките. Скриптовете, които идват с инсталацията са писани на Ruby, като може да се намери скрипт, който търси в amazon.com, пак на Ruby. Общо взето забелязвам, че Ruby започва да се превръща в скриптовия език &#8220;of choice&#8221; за Mac OS X.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-22T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/02/22/new_beginning/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/02/22/new_beginning/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/02/22/new_beginning/">Ново начало</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Привет!</p>
+
+<p>Ето, че преоткривам блога, който бях създал преди време, но за съжаление зарязах поради липса на време. Не знам дали е защото в момента имам повечко свободно време, но все пак реших, че имам желание да подновя писанията си.</p>
+
+<p>Та на този блог ще гледам да публикувам интересни неща, с които съм се сблъскал и които ми се струва, че биха били интересни на читателите. Повечетно неща ще са свързани с програмиране и с опита, който съм придобил от всекидневната ми работа като софтуерен инженер.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2008-02-22T00:00:00+02:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2008/02/22/mac_blogging_app/#disqus_thread"
+             data-disqus-identifier="http://valentinmihov.com/2008/02/22/mac_blogging_app/">Comments</a>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/2008/02/22/mac_blogging_app/">Програма за блогване за mac с български spellcheck</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>Реших, че е крайно изнервящо да се блогва от web-а и затова реших, че ми трябва някакво програмче, за mac естествено, което да ми помогне. Пробвах <a href="http://www.qumana.com/">Qumana</a>, която е доста удобна и освен това е безплатна, но няма нещо, на което много държа: spellcheck на български. Не намерих начин да сложа допълнителни речници освен вградените за английски и испански. Затова реших да пробвам <a href="http://www.scribefire.com/">ScribeFire</a>. Оказа се, че той може да ползва spellcheck-а на firefox, за който не е проблем да се сложи български речник, което реши моите проблеми :).</p>
+
+<p>Между временно се натъкнах на нещо крайно интересно: <a href="http://people.ict.usc.edu/%7Eleuski/cocoaspell/">cocoAspell</a>. Aspell порт за mac, който се оказа, че е доста приятен за работа и вече го имам инсталиран заедно с aspell речниците за български. Вече всички програми, които ползва mac api-то за spellcheck, могат да го ползват.</p>
+</div>
+  
+  
+
+
+        </article>
+      
+    </div>
+
+    <ul class="pager">
+      
+        <li class="previous disabled"><a href="#">&larr;&nbsp;Older</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+        <li class="next"><a href="/blog/page/2/">Newer&nbsp;&rarr;</a></li>
+      
+    </ul>
+  </div>
+
+  
+    <aside class="sidebar col-md-3">
+      
+        <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/2014/02/12/home_automation_research_choosing_hardware/">Home automation: research and choosing hardware</a>
+    
+    <a class="list-group-item " href="/2010/02/23/ruby_1_9_1_and_mysql_i18n/">Running Ruby 1.9.1 + Rails + MySQL and unicode characters</a>
+    
+    <a class="list-group-item " href="/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/">My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 2</a>
+    
+    <a class="list-group-item " href="/2010/02/02/switching_to_jekyll_and_compass/">Switching my blog to jekyll and compass</a>
+    
+    <a class="list-group-item " href="/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/">My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1</a>
+    
+  </div>
+</section>
+
+<section class="panel panel-default clearfix">
+  <div class="panel-heading">
+      <h3 class="panel-title">GitHub Repos</h3>
+  </div>
+  <div class="list-group" id="gh_repos">
+    <p class="loading">Status updating&#8230;</p>
+  </div>
+  
+    <div class="gh-profile-link pull-right text-muted">
+      <a href="https://github.com/valo">@valo</a> on GitHub
+    </div>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'valo',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <a class="twitter-timeline" href="https://twitter.com/valentinmihov" data-widget-id="433939645676519424">Tweets by @valentinmihov</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+
+      
+    </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - Valentin Mihov<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'valentinmihov';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </body>
+</html>

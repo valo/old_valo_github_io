@@ -1,0 +1,38 @@
+Ruby 1.8 + Thin
+
+Server Software:        nginx/0.7.61
+Server Hostname:        127.0.0.1
+Server Port:            8080
+
+Document Path:          /
+Document Length:        9316 bytes
+
+Concurrency Level:      10
+Time taken for tests:   51.160 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      9497000 bytes
+HTML transferred:       9316000 bytes
+Requests per second:    19.55 [#/sec] (mean)
+Time per request:       511.599 [ms] (mean)
+Time per request:       51.160 [ms] (mean, across all concurrent requests)
+Transfer rate:          181.28 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.4      0       6
+Processing:   142  510 245.5    446    1426
+Waiting:      140  480 198.1    442    1386
+Total:        142  510 245.5    446    1426
+
+Percentage of the requests served within a certain time (ms)
+  50%    446
+  66%    512
+  75%    571
+  80%    673
+  90%    876
+  95%   1046
+  98%   1248
+  99%   1314
+ 100%   1426 (longest request)
