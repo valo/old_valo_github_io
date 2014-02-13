@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: good practices | Valentin Mihov's blog]]></title>
-  <link href="http://www.valentinmihov.com/blog/categories/good-practices/atom.xml" rel="self"/>
-  <link href="http://www.valentinmihov.com/"/>
-  <updated>2014-02-13T17:51:29+02:00</updated>
-  <id>http://www.valentinmihov.com/</id>
+  <link href="http://valentinmihov.com/blog/categories/good-practices/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T18:00:33+02:00</updated>
+  <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Why writing good XHTML matters]]></title>
-    <link href="http://www.valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters/"/>
+    <link href="http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters/"/>
     <updated>2009-07-06T00:00:00+03:00</updated>
-    <id>http://www.valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters</id>
+    <id>http://valentinmihov.com/2009/07/06/why_writing_good_xhtml_matters</id>
     <content type="html"><![CDATA[<p>These days I am working on a large change in our corporate website. It includes  a lot of functional changes as well as a lot of little text tweaks here and there. Our process for making these changes is that the marketing people go through the whole site and generate a large document, which includes all the modifications that should be made. After that the developers go through the large doc and start making the changes. The problem is that this process is <strong>very</strong> inefficient. This is because of the following reasons:</p>
 
 <!--more-->

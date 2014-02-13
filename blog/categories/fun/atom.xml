@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: fun | Valentin Mihov's blog]]></title>
-  <link href="http://www.valentinmihov.com/blog/categories/fun/atom.xml" rel="self"/>
-  <link href="http://www.valentinmihov.com/"/>
-  <updated>2014-02-13T17:51:29+02:00</updated>
-  <id>http://www.valentinmihov.com/</id>
+  <link href="http://valentinmihov.com/blog/categories/fun/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T18:00:33+02:00</updated>
+  <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A task for admission of gifted children in Japan]]></title>
-    <link href="http://www.valentinmihov.com/2009/11/12/japaneze_kindergarten_task/"/>
+    <link href="http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task/"/>
     <updated>2009-11-12T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2009/11/12/japaneze_kindergarten_task</id>
+    <id>http://valentinmihov.com/2009/11/12/japaneze_kindergarten_task</id>
     <content type="html"><![CDATA[<p>This is a task that was given to a group of children for admission in kindergarten for gifted children in Nagoya, Japan. 74% of the children solved it. A hint: they were able to count up to 10.</p>
 
 <!--more-->
@@ -52,9 +52,9 @@
   
   <entry>
     <title type="html"><![CDATA[The greatest demo video *ever*]]></title>
-    <link href="http://www.valentinmihov.com/2008/07/31/greatest_demo_video_ever/"/>
+    <link href="http://valentinmihov.com/2008/07/31/greatest_demo_video_ever/"/>
     <updated>2008-07-31T00:00:00+03:00</updated>
-    <id>http://www.valentinmihov.com/2008/07/31/greatest_demo_video_ever</id>
+    <id>http://valentinmihov.com/2008/07/31/greatest_demo_video_ever</id>
     <content type="html"><![CDATA[<p><a href="http://static.zoho.com/meeting/docs/demo/demo.html">http://static.zoho.com/meeting/docs/demo/demo.html</a></p>
 
 <p>I don't have anything against people with strange English accents (I guess that I also have one), but to make a video showing your product like this it not one of the greatest things a company can make.</p>
@@ -63,9 +63,9 @@
   
   <entry>
     <title type="html"><![CDATA[The song about the bottles sang by a C programmer]]></title>
-    <link href="http://www.valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
+    <link href="http://valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
     <updated>2008-07-01T00:00:00+03:00</updated>
-    <id>http://www.valentinmihov.com/2008/07/01/bottles_programmer_song</id>
+    <id>http://valentinmihov.com/2008/07/01/bottles_programmer_song</id>
     <content type="html"><![CDATA[<p>``` bash</p>
 
 <pre><code># ./sing_ten_bottles_song

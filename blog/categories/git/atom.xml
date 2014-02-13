@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: git | Valentin Mihov's blog]]></title>
-  <link href="http://www.valentinmihov.com/blog/categories/git/atom.xml" rel="self"/>
-  <link href="http://www.valentinmihov.com/"/>
-  <updated>2014-02-13T17:51:29+02:00</updated>
-  <id>http://www.valentinmihov.com/</id>
+  <link href="http://valentinmihov.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T18:00:33+02:00</updated>
+  <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Use git-svn to maintain a stable branch]]></title>
-    <link href="http://www.valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch/"/>
+    <link href="http://valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch/"/>
     <updated>2008-12-04T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch</id>
+    <id>http://valentinmihov.com/2008/12/04/use_git-svn_to_maintain_stable_branch</id>
     <content type="html"><![CDATA[<p>These days I discovered that git-svn could be very useful for my workflow. In the project I work now, the development is quite intense and it is not unusual for the latest code, when I get up in the morning and sync with the trunk, not to work properly or to require some reconfiguration. This means that I will need extra time to get everything working, before I am able to start working.</p>
 
 <!--more-->
@@ -40,9 +40,9 @@ $ git svn dcommit
   
   <entry>
     <title type="html"><![CDATA[Falling in love with git]]></title>
-    <link href="http://www.valentinmihov.com/2008/11/03/falling_in_love_with_git/"/>
+    <link href="http://valentinmihov.com/2008/11/03/falling_in_love_with_git/"/>
     <updated>2008-11-03T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2008/11/03/falling_in_love_with_git</id>
+    <id>http://valentinmihov.com/2008/11/03/falling_in_love_with_git</id>
     <content type="html"><![CDATA[<p>I few weeks ago I decided to try to use <a href="http://en.wikipedia.org/wiki/Git_(software">git</a>) in my everyday workflow. In <a href="http://www.dreambox.com">DreamBox</a> we are using SVN, so I had to use git-svn.</p>
 
 <p>To be honest, first it was hard. The main problem was to get the ideas behind git and to find the right commands for doing the everyday stuff. After several days of working with it I really fell in love. Now I am using it as my main version control system. What I really like is that I can easily branch the code and start working on something experimental and at the moment I decide that it is ready to be integrated in the product I just merge it in the main code branch with the whole history of developing it. The other great thing is that I have the <em>whole</em> history on my machine and I can work offline.</p>

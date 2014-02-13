@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rails | Valentin Mihov's blog]]></title>
-  <link href="http://www.valentinmihov.com/blog/categories/rails/atom.xml" rel="self"/>
-  <link href="http://www.valentinmihov.com/"/>
-  <updated>2014-02-13T17:51:29+02:00</updated>
-  <id>http://www.valentinmihov.com/</id>
+  <link href="http://valentinmihov.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T18:00:33+02:00</updated>
+  <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Running Ruby 1.9.1 + Rails + MySQL and unicode characters]]></title>
-    <link href="http://www.valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
+    <link href="http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
     <updated>2010-02-23T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
+    <id>http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
     <content type="html"><![CDATA[<p>If you have tried to develop some rails application on Rails + Ruby 1.9.1 and MySQL database and you are storing non-English characters in your database probably you had a lot of pain with errors about incompatible charsets. This is a known problem and there is even <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2476-ascii-8bit-encoding-of-query-results-in-rails-232-and-ruby-191">a bug in Rails' lighthouse</a> for it. There is even a hack which is going around the issue. The solution is not perfect, but it works in most of the cases.</p>
 
 <!--more-->
@@ -54,9 +54,9 @@
   
   <entry>
     <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 2]]></title>
-    <link href="http://www.valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/"/>
+    <link href="http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2/"/>
     <updated>2010-02-12T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2</id>
+    <id>http://valentinmihov.com/2010/02/12/rails_2_3_5_with_ruby_1_9_1_dev_notes_part_2</id>
     <content type="html"><![CDATA[<p>My journey into the ruby 1.9 land continues with some nice observations, tricks and tips.</p>
 
 <!--more-->
@@ -102,9 +102,9 @@ Abort trap
   
   <entry>
     <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1]]></title>
-    <link href="http://www.valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
+    <link href="http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
     <updated>2010-01-20T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
+    <id>http://valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
     <content type="html"><![CDATA[<p>I decided to use ruby 1.9.1 for my next project. One of the reasons I decided so is because ruby 1.9 is definitely faster than 1.8 and also it has a superior encoding support for the strings. Not to mention that living on the edge is a thrill :-)</p>
 
 <!--more-->
@@ -225,9 +225,9 @@ EOFError (end of file reached):
   
   <entry>
     <title type="html"><![CDATA[Integrating custom SQL queries with ActiveRecord]]></title>
-    <link href="http://www.valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord/"/>
+    <link href="http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord/"/>
     <updated>2009-11-20T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord</id>
+    <id>http://valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord</id>
     <content type="html"><![CDATA[<p>I know that some people could start a flame war about what I will discussing right now, so let me first introduce you into the context of the problem.</p>
 
 <!--more-->
@@ -400,9 +400,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Weird ERB comment behaviors]]></title>
-    <link href="http://www.valentinmihov.com/2009/07/08/weird_erb_comment_functionalities/"/>
+    <link href="http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities/"/>
     <updated>2009-07-08T00:00:00+03:00</updated>
-    <id>http://www.valentinmihov.com/2009/07/08/weird_erb_comment_functionalities</id>
+    <id>http://valentinmihov.com/2009/07/08/weird_erb_comment_functionalities</id>
     <content type="html"><![CDATA[<p>I encountered some very strange erb behaviors when the you comments in the templates. For example:</p>
 
 <pre><code>&lt;% if true %&gt;

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: mysql | Valentin Mihov's blog]]></title>
-  <link href="http://www.valentinmihov.com/blog/categories/mysql/atom.xml" rel="self"/>
-  <link href="http://www.valentinmihov.com/"/>
-  <updated>2014-02-13T17:51:29+02:00</updated>
-  <id>http://www.valentinmihov.com/</id>
+  <link href="http://valentinmihov.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://valentinmihov.com/"/>
+  <updated>2014-02-13T18:00:33+02:00</updated>
+  <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Running Ruby 1.9.1 + Rails + MySQL and unicode characters]]></title>
-    <link href="http://www.valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
+    <link href="http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n/"/>
     <updated>2010-02-23T00:00:00+02:00</updated>
-    <id>http://www.valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
+    <id>http://valentinmihov.com/2010/02/23/ruby_1_9_1_and_mysql_i18n</id>
     <content type="html"><![CDATA[<p>If you have tried to develop some rails application on Rails + Ruby 1.9.1 and MySQL database and you are storing non-English characters in your database probably you had a lot of pain with errors about incompatible charsets. This is a known problem and there is even <a href="https://rails.lighthouseapp.com/projects/8994/tickets/2476-ascii-8bit-encoding-of-query-results-in-rails-232-and-ruby-191">a bug in Rails' lighthouse</a> for it. There is even a hack which is going around the issue. The solution is not perfect, but it works in most of the cases.</p>
 
 <!--more-->
@@ -54,9 +54,9 @@
   
   <entry>
     <title type="html"><![CDATA[Installing the rails native mysql bindings for a "fink" mysql]]></title>
-    <link href="http://www.valentinmihov.com/2008/06/17/rails_native_mysql_install/"/>
+    <link href="http://valentinmihov.com/2008/06/17/rails_native_mysql_install/"/>
     <updated>2008-06-17T00:00:00+03:00</updated>
-    <id>http://www.valentinmihov.com/2008/06/17/rails_native_mysql_install</id>
+    <id>http://valentinmihov.com/2008/06/17/rails_native_mysql_install</id>
     <content type="html"><![CDATA[<p>I am using Mac OS X Leopard and I have the package manager <a href="http://www.finkproject.org/">fink</a> for installing open source software. I have used fink to install mysql and today it turned out that this was a horrible mistake.</p>
 
 <p>I lost around 1:30 hours for figure out how to compile the mysql gem. The installer was not able to find the mysql libraries and includes. The magic line turned out to be:</p>
