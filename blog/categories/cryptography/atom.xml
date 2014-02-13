@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: cryptography | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/cryptography/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/cryptography/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[SMTPs и POP3s с JavaMail]]></title>
-    <link href="http://valentinmihov.com/2008/03/05/smtp_pop3_javamail/"/>
+    <link href="http://valo.github.io/2008/03/05/smtp_pop3_javamail/"/>
     <updated>2008-03-05T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2008/03/05/smtp_pop3_javamail</id>
+    <id>http://valo.github.io/2008/03/05/smtp_pop3_javamail</id>
     <content type="html"><![CDATA[<p>Тези дни ми се наложи да се боря с JavaMail и поддръжката му на SSL/TLS за вързване към мейл сървърите. На пръв поглед от документацията се вижда, че това се поддържа от API-то и не би трябвало да има проблеми с интеграцията. На втори поглед, както винаги, се разбира че всъщност нещата не стоят толкова просто.</p>
 
 <ul>

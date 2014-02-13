@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: dreambox | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/dreambox/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/dreambox/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Dreambox.com - the revolution in the online learning]]></title>
-    <link href="http://valentinmihov.com/2008/11/01/dreambox_the_revolution/"/>
+    <link href="http://valo.github.io/2008/11/01/dreambox_the_revolution/"/>
     <updated>2008-11-01T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2008/11/01/dreambox_the_revolution</id>
+    <id>http://valo.github.io/2008/11/01/dreambox_the_revolution</id>
     <content type="html"><![CDATA[<p>I haven't written anything about the company I am working right now. May be one of the reasons is that my free time is highly limited (I guess working in a start-up is aways like that ;-)).</p>
 
 <!--more-->

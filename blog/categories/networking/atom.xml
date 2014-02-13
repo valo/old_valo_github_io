@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: networking | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/networking/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/networking/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hacking the package TTL with DD-WRT]]></title>
-    <link href="http://valentinmihov.com/2008/08/07/hacking_ttl_with_dd-wrt/"/>
+    <link href="http://valo.github.io/2008/08/07/hacking_ttl_with_dd-wrt/"/>
     <updated>2008-08-07T00:00:00+03:00</updated>
-    <id>http://valentinmihov.com/2008/08/07/hacking_ttl_with_dd-wrt</id>
+    <id>http://valo.github.io/2008/08/07/hacking_ttl_with_dd-wrt</id>
     <content type="html"><![CDATA[<p>Some ISPs are changing the TTL of the packets going to their customers to protect from splitting the network accounts to several people. This could be quite annoying when a person wants to use a wireless router, so she could use her laptop/ipod/whatever-you-like from every point in the house. Of course there is a solution. Here is mine:</p>
 
 <!--more-->

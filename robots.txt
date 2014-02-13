@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://valentinmihov.com/sitemap.xml 
+Sitemap: http://valo.github.io/sitemap.xml 

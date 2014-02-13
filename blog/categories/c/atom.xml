@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: C | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/c/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/c/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,18 +15,18 @@
   
   <entry>
     <title type="html"><![CDATA[The game of Breakit!]]></title>
-    <link href="http://valentinmihov.com/2008/08/07/game_of_breakit/"/>
+    <link href="http://valo.github.io/2008/08/07/game_of_breakit/"/>
     <updated>2008-08-07T00:00:00+03:00</updated>
-    <id>http://valentinmihov.com/2008/08/07/game_of_breakit</id>
+    <id>http://valo.github.io/2008/08/07/game_of_breakit</id>
     <content type="html"><![CDATA[<p>When I was still in high school I wrote a game. It was a cloning of the famous Arcanoid game and was written in <a href="http://www.talula.demon.co.uk/allegro/">Allegro</a>. The unique feature of the game is that it supports multiplayer on one PC, which is something like deathmatch. Today I found the source and opened a project in Google Code. Here is it: <a href="http://code.google.com/p/breakin/">http://code.google.com/p/breakin/</a> (the project is called breakin, because breakit is used for another project in sourceforge).</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[The song about the bottles sang by a C programmer]]></title>
-    <link href="http://valentinmihov.com/2008/07/01/bottles_programmer_song/"/>
+    <link href="http://valo.github.io/2008/07/01/bottles_programmer_song/"/>
     <updated>2008-07-01T00:00:00+03:00</updated>
-    <id>http://valentinmihov.com/2008/07/01/bottles_programmer_song</id>
+    <id>http://valo.github.io/2008/07/01/bottles_programmer_song</id>
     <content type="html"><![CDATA[<p>``` bash</p>
 
 <pre><code># ./sing_ten_bottles_song
@@ -46,9 +46,9 @@ Segmentation fault#
   
   <entry>
     <title type="html"><![CDATA[An interesting compiler oddness in Visual Studio C++]]></title>
-    <link href="http://valentinmihov.com/2008/04/23/visual_studio_compiler_oddness/"/>
+    <link href="http://valo.github.io/2008/04/23/visual_studio_compiler_oddness/"/>
     <updated>2008-04-23T00:00:00+03:00</updated>
-    <id>http://valentinmihov.com/2008/04/23/visual_studio_compiler_oddness</id>
+    <id>http://valo.github.io/2008/04/23/visual_studio_compiler_oddness</id>
     <content type="html"><![CDATA[<p>A few days ago I stumbled to a very interesting behavior of the Visual Studio C++ compiler. Here is a simple code illustrating it:</p>
 
 <p>``` c</p>
@@ -89,9 +89,9 @@ int main()
   
   <entry>
     <title type="html"><![CDATA[Интересна забележка отностно темплейтите в C++]]></title>
-    <link href="http://valentinmihov.com/2008/03/10/c_template_notes/"/>
+    <link href="http://valo.github.io/2008/03/10/c_template_notes/"/>
     <updated>2008-03-10T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2008/03/10/c_template_notes</id>
+    <id>http://valo.github.io/2008/03/10/c_template_notes</id>
     <content type="html"><![CDATA[<p>Тъй като в момента портвам едни сорсове за GCC се натъкнах на много интересна несъвместимост между VC++ и GCC. В последствие се оказа, че това е пренебрегване на VC++ на стандарта (сефте!). Ето за какво става дума:</p>
 
 <p>``` cpp</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: blogging | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/blogging/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/blogging/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Switching my blog to jekyll and compass]]></title>
-    <link href="http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass/"/>
+    <link href="http://valo.github.io/2010/02/02/switching_to_jekyll_and_compass/"/>
     <updated>2010-02-02T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass</id>
+    <id>http://valo.github.io/2010/02/02/switching_to_jekyll_and_compass</id>
     <content type="html"><![CDATA[<p>Probably you remember that some time ago I decided to switch my blog from <a href="http://blogger.google.com/" title="Google">blogger</a> to a custom made blogging engine written my me. It was a simple sinatra app, which was parsing a bunch of markdown files, which were the posts and rendering the blog.</p>
 
 <!--more-->
@@ -84,9 +84,9 @@ body.two-col
   
   <entry>
     <title type="html"><![CDATA[Hello from sinatra and blogxter]]></title>
-    <link href="http://valentinmihov.com/2009/06/24/hello_world/"/>
+    <link href="http://valo.github.io/2009/06/24/hello_world/"/>
     <updated>2009-06-24T00:00:00+03:00</updated>
-    <id>http://valentinmihov.com/2009/06/24/hello_world</id>
+    <id>http://valo.github.io/2009/06/24/hello_world</id>
     <content type="html"><![CDATA[<p>This is my personal blog, which is powered by several new and exiting technologies for me. Heroku, Sinatra, HAML and RDiscount (markdown).</p>
 
 <!--more-->
@@ -102,9 +102,9 @@ body.two-col
   
   <entry>
     <title type="html"><![CDATA[Програма за блогване за mac с български spellcheck]]></title>
-    <link href="http://valentinmihov.com/2008/02/22/mac_blogging_app/"/>
+    <link href="http://valo.github.io/2008/02/22/mac_blogging_app/"/>
     <updated>2008-02-22T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2008/02/22/mac_blogging_app</id>
+    <id>http://valo.github.io/2008/02/22/mac_blogging_app</id>
     <content type="html"><![CDATA[<p>Реших, че е крайно изнервящо да се блогва от web-а и затова реших, че ми трябва някакво програмче, за mac естествено, което да ми помогне. Пробвах <a href="http://www.qumana.com/">Qumana</a>, която е доста удобна и освен това е безплатна, но няма нещо, на което много държа: spellcheck на български. Не намерих начин да сложа допълнителни речници освен вградените за английски и испански. Затова реших да пробвам <a href="http://www.scribefire.com/">ScribeFire</a>. Оказа се, че той може да ползва spellcheck-а на firefox, за който не е проблем да се сложи български речник, което реши моите проблеми :).</p>
 
 <p>Между временно се натъкнах на нещо крайно интересно: <a href="http://people.ict.usc.edu/%7Eleuski/cocoaspell/">cocoAspell</a>. Aspell порт за mac, който се оказа, че е доста приятен за работа и вече го имам инсталиран заедно с aspell речниците за български. Вече всички програми, които ползва mac api-то за spellcheck, могат да го ползват.</p>

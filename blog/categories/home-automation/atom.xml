@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: home automation | Valentin Mihov's blog]]></title>
-  <link href="http://valentinmihov.com/blog/categories/home-automation/atom.xml" rel="self"/>
-  <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T16:00:47+02:00</updated>
-  <id>http://valentinmihov.com/</id>
+  <link href="http://valo.github.io/blog/categories/home-automation/atom.xml" rel="self"/>
+  <link href="http://valo.github.io/"/>
+  <updated>2014-02-13T17:49:55+02:00</updated>
+  <id>http://valo.github.io/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Home automation: research and choosing hardware]]></title>
-    <link href="http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware/"/>
+    <link href="http://valo.github.io/2014/02/12/home_automation_research_choosing_hardware/"/>
     <updated>2014-02-12T00:00:00+02:00</updated>
-    <id>http://valentinmihov.com/2014/02/12/home_automation_research_choosing_hardware</id>
+    <id>http://valo.github.io/2014/02/12/home_automation_research_choosing_hardware</id>
     <content type="html"><![CDATA[<p>I decided to make a self made home automation system in my apartment. The reason is that I figured out that turning on and off my heating when I am not around reduces my electricity bill by 50%. My current schedule is to turn off the heating when I leave the house and turn it on 1 hour before I come back home. I do the same thing with the heating in my bedroom. The heating there is turned on about an hour before I go to sleep and I turn it off during the day. However there are exceptions from these rules especailly around holidays, so an automation system should also be very configurable.</p>
 
 <!--more-->
