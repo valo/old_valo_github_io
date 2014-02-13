@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: sql | Valentin Mihov's blog]]></title>
-  <link href="http://valo.github.io/blog/categories/sql/atom.xml" rel="self"/>
-  <link href="http://valo.github.io/"/>
-  <updated>2014-02-13T17:49:55+02:00</updated>
-  <id>http://valo.github.io/</id>
+  <link href="http://www.valentinmihov.com/blog/categories/sql/atom.xml" rel="self"/>
+  <link href="http://www.valentinmihov.com/"/>
+  <updated>2014-02-13T17:51:29+02:00</updated>
+  <id>http://www.valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Integrating custom SQL queries with ActiveRecord]]></title>
-    <link href="http://valo.github.io/2009/11/20/integrating_custom_queries_in_activerecord/"/>
+    <link href="http://www.valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord/"/>
     <updated>2009-11-20T00:00:00+02:00</updated>
-    <id>http://valo.github.io/2009/11/20/integrating_custom_queries_in_activerecord</id>
+    <id>http://www.valentinmihov.com/2009/11/20/integrating_custom_queries_in_activerecord</id>
     <content type="html"><![CDATA[<p>I know that some people could start a flame war about what I will discussing right now, so let me first introduce you into the context of the problem.</p>
 
 <!--more-->

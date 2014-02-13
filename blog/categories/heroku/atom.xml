@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: heroku | Valentin Mihov's blog]]></title>
-  <link href="http://valo.github.io/blog/categories/heroku/atom.xml" rel="self"/>
-  <link href="http://valo.github.io/"/>
-  <updated>2014-02-13T17:49:55+02:00</updated>
-  <id>http://valo.github.io/</id>
+  <link href="http://www.valentinmihov.com/blog/categories/heroku/atom.xml" rel="self"/>
+  <link href="http://www.valentinmihov.com/"/>
+  <updated>2014-02-13T17:51:29+02:00</updated>
+  <id>http://www.valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Switching my blog to jekyll and compass]]></title>
-    <link href="http://valo.github.io/2010/02/02/switching_to_jekyll_and_compass/"/>
+    <link href="http://www.valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass/"/>
     <updated>2010-02-02T00:00:00+02:00</updated>
-    <id>http://valo.github.io/2010/02/02/switching_to_jekyll_and_compass</id>
+    <id>http://www.valentinmihov.com/2010/02/02/switching_to_jekyll_and_compass</id>
     <content type="html"><![CDATA[<p>Probably you remember that some time ago I decided to switch my blog from <a href="http://blogger.google.com/" title="Google">blogger</a> to a custom made blogging engine written my me. It was a simple sinatra app, which was parsing a bunch of markdown files, which were the posts and rendering the blog.</p>
 
 <!--more-->

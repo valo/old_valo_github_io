@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: mechanize | Valentin Mihov's blog]]></title>
-  <link href="http://valo.github.io/blog/categories/mechanize/atom.xml" rel="self"/>
-  <link href="http://valo.github.io/"/>
-  <updated>2014-02-13T17:49:55+02:00</updated>
-  <id>http://valo.github.io/</id>
+  <link href="http://www.valentinmihov.com/blog/categories/mechanize/atom.xml" rel="self"/>
+  <link href="http://www.valentinmihov.com/"/>
+  <updated>2014-02-13T17:51:29+02:00</updated>
+  <id>http://www.valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[My experience with developing a Rails 2.3.5 project with Ruby 1.9.1 Part 1]]></title>
-    <link href="http://valo.github.io/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
+    <link href="http://www.valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes/"/>
     <updated>2010-01-20T00:00:00+02:00</updated>
-    <id>http://valo.github.io/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
+    <id>http://www.valentinmihov.com/2010/01/20/rails_2_3_5_with_ruby_1_9_1_dev_notes</id>
     <content type="html"><![CDATA[<p>I decided to use ruby 1.9.1 for my next project. One of the reasons I decided so is because ruby 1.9 is definitely faster than 1.8 and also it has a superior encoding support for the strings. Not to mention that living on the edge is a thrill :-)</p>
 
 <!--more-->
