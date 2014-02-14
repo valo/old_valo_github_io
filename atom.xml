@@ -4,7 +4,7 @@
   <title><![CDATA[Valentin Mihov's blog]]></title>
   <link href="http://valentinmihov.com/atom.xml" rel="self"/>
   <link href="http://valentinmihov.com/"/>
-  <updated>2014-02-13T18:00:33+02:00</updated>
+  <updated>2014-02-14T12:14:28+02:00</updated>
   <id>http://valentinmihov.com/</id>
   <author>
     <name><![CDATA[Valentin Mihov]]></name>
@@ -29,7 +29,7 @@
 
 <p>I explored the technologies out there and decided that I won&#8217;t use WiFi for internal communication because this is too compex for embedded devices. It turns out there are much simpler and energy efficient protocols for wireless communication like <a href="http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">nRF24L01</a>. This protocol allows to build cheap and power efficient edge nodes, that have the option to run on batteries for months.</p>
 
-<p>Next I explored the different arduino-like development platforms and decided to go with <a href="https://www.olimex.com">Olimex</a>. Their prices are great and they also provide the UEXT modules, which is essentially breadboarding, but without the need to do any soldering and wiring. I am new to the hardware development, so for now I want to skip any wiring and soldering if possible. After putting all these requirement on the table it turned out that Olimex provide the cheapest solution out there, so I decided to go with them.</p>
+<p>Next I explored the different arduino-like development platforms and decided to go with <a href="https://www.olimex.com">Olimex</a>. Their prices are great and they also provide the UEXT modules, which is essentially breadboarding, but without the need to do any soldering and wiring. I am new to the hardware development, so for now I want to skip any wiring and soldering if possible. After putting all these requirements on the table it turned out that Olimex provide the cheapest solution out there, so I decided to go with them.</p>
 
 <p>The hardware I decided to use is:</p>
 
@@ -42,7 +42,7 @@
 </ul>
 
 
-<p>I decided to use the UEXT sockets to hook up everything. Keep in mind that if you use UEXT you can hook up several I2C devices to the same port. You can also hook up I2C devices and one SPI device, but you can&#8217;t have several SPI devices. This is because SPI does not allow to use the same pins for several devices. I2C allows that, as it is a more comprex protocol with addressing and stuff.</p>
+<p>I decided to use the UEXT sockets to hook up everything. Keep in mind that if you use UEXT you can hook up several I2C devices to the same port. You can also hook up several I2C devices and one SPI device, but you can&#8217;t have several SPI devices. This is because SPI does not allow to use the same pins for several devices. I2C allows that, as it is a more comprex protocol with addressing and stuff.</p>
 
 <p>I ordered the hardware and after 3 days I got everything on the mail:</p>
 
